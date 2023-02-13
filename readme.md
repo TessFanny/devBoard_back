@@ -1,4 +1,4 @@
-#### DevBoard
+# DevBoard
 
 ### Description du projet: 
 
@@ -12,53 +12,55 @@ Il sera conçu pour être facile à utiliser et pour offrir une vue d'ensemble c
 
 ### Fonctionnalité:
 
--Afficher Flux RSS en utilisant l’ API Dev.to/ medium pour afficher les derniers posts en tendance 
--une authentification 
--SignIn/SignUp
--Mettre en place une connexion externe avec Github 
--une searchBar 
+-Afficher Flux RSS en utilisant l’ API Dev.to/ medium pour afficher les derniers posts en tendance <br/> 
+-une authentification <br/>
+-SignIn/SignUp <br/>
+-Mettre en place une connexion externe avec Github <br/>
+-une searchBar <br/>
 
 ### MVP:
 
-Page d’authentification
-Avoir accès à ces repo Github sur l’application
-Flux RSS
+Page d’authentification<br/>
+Avoir accès à ces repo Github sur l’application<br/>
+Flux RSS<br/>
 
 ### Axe d’amélioration: 
 
-Forum
-codepen
-chat instantané avec room privée pour chaque topic de l’ App
+-Forum<br/>
+-codepen<br/>
+-chat instantané avec room privée pour chaque topic de l’ App<br/>
 
 ### Techno utilisées:
 
-BDD SQL/postgres
-NodeJs/ Express
+-BDD SQL/postgres<br/>
+-NodeJs/ Express<br/>
 
 ### Front:
 
-chakra UI ou Material UI
-React
-Sass ou Tailwind
-ReduxToolkit
+-chakra UI ou Material UI<br/>
+-React<br/>
+-Sass ou Tailwind<br/>
+-ReduxToolkit<br/>
 
 ### Rôle:
 
-Project Manager: Rachid 
-Lead Dev Front: Tom 
-Product owner: Maxime DUPIN
-Lead back end: Fanny Tessikoue
-Git master: Julien
+-Project Manager: Rachid 
+-Lead Dev Front: Tom 
+-Product owner: Maxime DUPIN
+-Lead back end: Fanny Tessikoue
+-Git master: Julien
 
 Reunion 9h30 Pour rachid se sera 9h et toute absence injustifié sera indiqué dans le carnet de correspondance
 
 ### Ressources du projet :
 
-https://codemirror.net/5/demo/theme.html#darcula
-https://chakra-ui.com/
-https://danvops.fr/2021/mes-flux-rss/
-https://dev.to/nataliedeweerd/how-to-use-the-dev-to-api-5gl3
+- https://codemirror.net/5/demo/theme.html#darcula
+- https://chakra-ui.com/
+- https://danvops.fr/2021/mes-flux-rss/
+- https://dev.to/nataliedeweerd/how-to-use-the-dev-to-api-5gl3
 
 ### Rappel sur Git 
 
-On crée tous notre propre branche pour dev et on push uniquement sur cette Branche avant le merge du soir du Git master
+On crée tous notre propre branche pour dev et on push uniquement sur cette Branche avant le merge du soir du Git master !
+
+On essaie de faire des noms de commit approprié dès le départ pour pas se perdre en route !
