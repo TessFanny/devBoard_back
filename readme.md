@@ -1,4 +1,4 @@
-# DevBoard
+--------------------------------------------------------------------------------------------------------------------------------# DevBoard
 
 ### Description du projet: 
 
@@ -21,7 +21,7 @@ Il sera conçu pour être facile à utiliser et pour offrir une vue d'ensemble c
 ### MVP:
 
 Page d’authentification<br/>
-Avoir accès à ces repo Github sur l’application<br/>
+Avoir accès à ses repo Github sur l’application<br/>
 Flux RSS<br/>
 
 ### Axe d’amélioration: 
@@ -64,3 +64,4 @@ Reunion 9h30 Pour rachid se sera 9h et toute absence injustifié sera indiqué d
 On crée tous notre propre branche pour dev et on push uniquement sur cette Branche avant le merge du soir du Git master !
 
 On essaie de faire des noms de commit approprié dès le départ pour pas se perdre en route !
+ 
