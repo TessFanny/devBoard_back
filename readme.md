@@ -44,7 +44,7 @@ Flux RSS<br/>
 
 ### Rôle:
 
--Project Manager: Rachid 
+-Project Manager: madani 
 -Lead Dev Front: Tom 
 -Product owner: Maxime DUPIN
 -Lead back end: Fanny Tessikoue
