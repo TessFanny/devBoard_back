@@ -17,7 +17,7 @@ CREATE TABLE "user" (
 CREATE TABLE skill (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text default '',
-    level text default ''
+    level INT 
 );
 CREATE TABLE post (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
