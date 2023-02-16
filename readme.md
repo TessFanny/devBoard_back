@@ -44,13 +44,13 @@ Flux RSS<br/>
 
 ### Rôle:
 
--Project Manager: madani 
+-Project Manager: Rachid 
 -Lead Dev Front: Tom 
 -Product owner: Maxime DUPIN
 -Lead back end: Fanny Tessikoue
 -Git master: Julien
 
-Reunion 9h30 Pour rachid se sera 9h et toute absence injustifié sera indiqué dans le carnet de correspondance
+Reunion 9h30 
 
 ### Ressources du projet :
 
