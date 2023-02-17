@@ -1,26 +1,23 @@
- const pool = require('../services/dbClient');
+const pool = require('../services/dbClient');
 
  //define the core model class that will help create other models
 
 class Core {
 tableName;
 
-   constructor() {
-      
+   constructor() {      
    }
    /**
     * Récupération par identifiant
     * @param {number|number[]} id identifiant ou liste d'identifiants
     * @returns un enregistrement ou une liste d'enregistrement
     */
-    async findByPk(id) {
+   async findByPk(id) {
       const preparedQuery = {
          text: `SELECT * FROM "${this.tableName}" WHERE id = $1`,
          values: [id],
       };
-      console.log(preparedQuery)
 
-      //console.log("### preparedQuery ###  ", preparedQuery);
       const result = await pool.query(preparedQuery);
 
       if (!result.rows[0]) {

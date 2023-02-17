@@ -4,7 +4,7 @@ const pool = require('../services/dbClient');
 
 class User extends Core {
     static tableName = 'user';
-     
+    
     constructor(){
         super();
         this.tableName = 'user'
