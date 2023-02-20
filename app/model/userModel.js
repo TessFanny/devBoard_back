@@ -25,7 +25,7 @@ class User extends Core {
         const sqlQuery = "SELECT * FROM \"user\" WHERE username=$1 AND password=$2";
         const values = [this.username, this.password];
 
-        const response = await client.query(sqlQuery, values);
+        const response = await pool.query(sqlQuery, values);
         
         // si j'ai une réponse c'est que l'utilisateur a été trouvé en BDD
         if (response.rows.length == 1) {

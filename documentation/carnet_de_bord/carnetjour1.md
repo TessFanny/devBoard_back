@@ -1,5 +1,5 @@
  
-## 05/03/2032 - Sprint 1
+## 14/02/2023 - Sprint 1
 
 Hier, nous avons réflechit au MVP et parler des fonctionnalités principales pour notre site.
 

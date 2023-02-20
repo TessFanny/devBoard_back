@@ -16,31 +16,31 @@ const authController = {
                 email,
                 password: passwordHash,
                 })
-                
+
             const savedUser = await newUser.create(newUser);
             res.status(201).json(savedUser)
         } catch(err){
             res.status(500).json({ error: err.message})
         }
     },
-    loginUser: async(req,res)=>{
-        try{
-            const {email, password}= req.body;
+    // loginUser: async(req,res)=>{
+    //     try{
+    //         const {email, password}= req.body;
     
-            const user = await User.findOne({email: email});
+    //         const user = await User.findOne({email: email});
 
-            if (!user) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
+    //         if (!user) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
     
-            const Boolcompare = await bcrypt.compare(password, user.password);
+    //         const Boolcompare = await bcrypt.compare(password, user.password);
 
-            if(!Boolcompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})
+    //         if(!Boolcompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})
     
-            // const token =jwt.sign({id: user._id}, process.env.JWT_SECRET);
-            delete user.password;
-            // res.status(200).json( {token, user}); A mettre plus tard avec JWT
-            res.status(200).json( {user});
-        } catch(err) {
-            res.status(500).json({error: err.message})
-        }
-    }
+    //         // const token =jwt.sign({id: user._id}, process.env.JWT_SECRET);
+    //         delete user.password;
+    //         // res.status(200).json( {token, user}); A mettre plus tard avec JWT
+    //         res.status(200).json( {user});
+    //     } catch(err) {
+    //         res.status(500).json({error: err.message})
+    //     }
+    // }
 }
