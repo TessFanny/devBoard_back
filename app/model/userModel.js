@@ -8,14 +8,25 @@ class User extends Core {
     constructor(){
         super();
         this.tableName = 'user'
-    //     // this.username=obj.username;
-    //     // this.email=obj.email;
-    //     // this.password=obj.password;
-    //     // this.lastname = obj.lastname;
-    //     // this.firstname = obj.firstname;
-    //     // this.image_path = obj.image_path;
-    //     // this.role =obj.role;
+        // this.username=obj.username;
+        // this.password=obj.password;
     }
+
+    async findByEmail(email) {
+        const preparedQuery = {
+            text: `SELECT "username", "email", "password" FROM "${this.tableName}" WHERE email = $1`,
+            values: [email],
+        };
+        
+        const result = await pool.query(preparedQuery);
+        
+        if (!result.rows[0]) {
+            return null;
+        }
+        
+        return result.rows[0];
+    }
+
     async checkPassword() {
         // utilisateur de test :
         // INSERT INTO public."user"(

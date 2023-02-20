@@ -1,5 +1,5 @@
 const userRouter = require("./userRouter");
-const authRouter = require("./auth");
+const authRouter = require("./authRouter");
 //const postRouter = require("./postRouter.js");
 //const rssRouter = require("./rssRouter.js");
 

@@ -1,4 +1,4 @@
-export PGUSER=postgres
-export PGPASSWORD=devboard
+export PGUSER=spedata
+
 
 sqitch deploy

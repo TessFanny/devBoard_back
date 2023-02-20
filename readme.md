@@ -63,4 +63,4 @@ Reunion 9h30
 
 On crée tous notre propre branche pour dev et on push uniquement sur cette Branche avant le merge du soir du Git master !
 
-On essaie de faire des noms de commit approprié dès le départ pour pas se perdre en route !
+On essaie de faire des noms de commit approprié dès le départ pour pas se perdre en route! 

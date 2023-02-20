@@ -13,6 +13,18 @@ const userController = {
          res.status(404).json({message: err.message})
       }
       
+   },   
+   getOneUserbyEmail: async (req,res) => {
+      try {
+
+      const user = new User();
+      const newUser = await user.findByEmail({});
+      res.status(200).json(newUser)
+
+      } catch(err) {
+
+         res.status(400).json({message: err.message})
+      }
    },
    getOneUser: async (req,res) => {
       try {
@@ -33,7 +45,8 @@ const userController = {
          const newUser = await user.update(req.params.id, req.body);
          res.status(200).json(newUser)
 
-      } catch {
+      } catch(err) {
+         console.log(err)
          res.status(400).json({message: err.message})
       }
    },
@@ -44,7 +57,7 @@ const userController = {
          const newUser = await user.delete(req.params.id);
          res.status(200).json(newUser)
 
-      } catch {
+      } catch(err) {
          res.status(400).json({message: err.message})
       }
    }

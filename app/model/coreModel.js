@@ -67,7 +67,6 @@ tableName;
       };
 
       const result = await pool.query(preparedQuery);
-      // console.log(result.rows);
       return result.rows;
    }
 
@@ -93,14 +92,13 @@ tableName;
          `,
          values,
       };
-
       const result = await pool.query(preparedQuery);
       const row = result.rows[0];
 
       return row;
    }
 
-   async update({ id }, inputData) {
+   async update(id , inputData) {
       const fieldsAndPlaceholders = [];
       let indexPlaceholder = 1;
       const values = [];
@@ -110,20 +108,18 @@ tableName;
          indexPlaceholder += 1;
          values.push(value);
       });
-
+      
       values.push(id);
 
       const preparedQuery = {
          text: `
                UPDATE "${this.tableName}" SET
-               ${fieldsAndPlaceholders},
-               updated_at = now()
+               ${fieldsAndPlaceholders}
                WHERE id = $${indexPlaceholder}
                RETURNING *
          `,
          values,
       };
-
       const result = await pool.query(preparedQuery);
       const row = result.rows[0];
 

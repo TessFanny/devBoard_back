@@ -6,6 +6,8 @@
 // import morgan from "morgan";
 // import path from "path";
 // import { fileURLToPath } from "url";
+const cors = require('cors')
+const {userRouter, authRouter}  = require("./app/router")
 
 // SERVER CONFIGURATION
 
@@ -16,7 +18,9 @@ const expressJSDocSwagger = require('express-jsdoc-swagger');
 require('dotenv').config();
 const app = express();
 
+app.use(express.json());
 
+app.use(cors());
 
 // get file name
 //const filename = fileURLToPath(import.meta.url);
@@ -27,7 +31,6 @@ const app = express();
 // app.use(helmet());
 // app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 
-// app.use(express.json());
 
 // // save HTTP request logging information// of the application in the "common" logging format.
 
@@ -38,7 +41,6 @@ const app = express();
 // app.use(bodyParser.urlencoded({limit:"50mb", extended:true}));
 
 // // allows cross-origin HTTP requests, i.e. requests coming from a domain different from that of the application.
-// app.use(cors());
 
 // // allows serving static files within a particular route
 
@@ -56,6 +58,19 @@ const app = express();
 // });
 
 //const upload = multer({storage});
+
+
+
+// REDIRECTION ROUTER 
+
+app.use(userRouter);
+app.use(authRouter);
+//app.use(postRouter);
+ //app.use(rssRouter);
+
+const port = process.env.PORT || 3000;
+
+// SWAGGER 
 
 const options = {
     info: {
@@ -79,15 +94,6 @@ const options = {
 };
 
 expressJSDocSwagger(app)(options);
-
-// REDIRECTION ROUTER 
-const {userRouter, authRouter, postRouter, rssRouter}  = require("./app/router")
-app.use(userRouter);
-//app.use(postRouter);
- //app.use(rssRouter);
-//app.use(authRouter);
-
-const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`Server ready:  http://localhost:${port}`);

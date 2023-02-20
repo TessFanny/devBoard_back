@@ -15,3 +15,5 @@ psql -f init_db.sql -d postgres
 
 # j'initialise SQITCH
 sqitch init devBoard --engine pg --target db:pg:devboard
+
+
