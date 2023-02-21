@@ -10,10 +10,18 @@ const {userRouter, authRouter}  = require("./app/router")
 const GitHubStrategy = require('passport-github2').Strategy;
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
+const fetch =(...args)=> import (`node-fetch`).then(({default:fetch}) => fetch(...args))
+
 // SERVER CONFIGURATION //
 
 const app = express();
 
+app.get('/getAccesToken', async function(req, res){
+    req.query.code;
+    const params ="?client_id"
+    await fetch("https")
+
+})
 // server initialization
 
 app.use(bodyParser.urlencoded({ extended: true }));
