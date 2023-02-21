@@ -29,7 +29,6 @@ const authController = {
             const user = new User();
             const newUser = await user.findByEmail(email);
             if (!newUser) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
-           
             const passwordCompare = await bcrypt.compare(password, newUser.password);
 
             if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})

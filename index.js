@@ -1,64 +1,36 @@
-
-// import cors from "cors";
-// import dotenv from "dotenv";
-// import multer from "multer";
-// import helmet from "helmet";
-// import morgan from "morgan";
-// import path from "path";
-// import { fileURLToPath } from "url";
+const passport = require('passport');
+const util = require('util');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+require('dotenv').config();
+const express = require('express');
 const cors = require('cors')
 const {userRouter, authRouter}  = require("./app/router")
-
-// SERVER CONFIGURATION
-
-// server initialization
-const express = require('express');
+const GitHubStrategy = require('passport-github2').Strategy;
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
-require('dotenv').config();
+// SERVER CONFIGURATION //
+
 const app = express();
 
+// server initialization
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(session({ 
+    secret: process.env.SECRET_SESSION, 
+    resave: false, 
+    saveUninitialized: false, 
+    cookie:{
+    httpOnly:true,
+    secure:false,
+    maxAge:24 * 60 * 60 *1000 
+} }));
+
 app.use(express.json());
-
 app.use(cors());
-
-// get file name
-//const filename = fileURLToPath(import.meta.url);
-// get directory
-// const _DirectoryName = path.dirname(filename);
-
-// // 
-// app.use(helmet());
-// app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
-
-
-// // save HTTP request logging information// of the application in the "common" logging format.
-
-// app.use(morgan("common"));
-
-// // allows the application to handle encoded JSON and URL data 
-// app.use(bodyParser.json({limit:"50mb", extended:true}));
-// app.use(bodyParser.urlencoded({limit:"50mb", extended:true}));
-
-// // allows cross-origin HTTP requests, i.e. requests coming from a domain different from that of the application.
-
-// // allows serving static files within a particular route
-
-// app.use("/assets", express.static(path.join(_DirectoryName, 'public/assets')));
-
-// allow Multer to store uploaded files in the "public/assets" folder on the server keeping their original name.
-
-// const storage = multer.diskStorage({
-//     destination: function(req, file, cb ){
-//         cb (null, "public/assets");
-//     },
-//     filename: function(req, file , cb ){
-//         cb (null, file.originalname);
-//     }
-// });
-
-//const upload = multer({storage});
-
 
 
 // REDIRECTION ROUTER 
@@ -70,7 +42,8 @@ app.use(authRouter);
 
 const port = process.env.PORT || 3000;
 
-// SWAGGER 
+
+// SWAGGER CONFIG //
 
 const options = {
     info: {
@@ -94,6 +67,67 @@ const options = {
 };
 
 expressJSDocSwagger(app)(options);
+
+// Oauth with PasseportJS CONFIG //
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+    });
+
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+});
+
+passport.use(new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/github/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        console.log(profile)
+        done(null,profile)
+        // User.findOneByGithubId({
+        //     'github.id': profile.id
+        // }, (err, user) => {
+        //     if (err) {
+        //     return done(err);
+        //     }
+        //     if (!user) {
+        //     user = new User({
+        //         name: profile.displayName,
+        //         username: profile.username,
+        //         provider: 'github',
+        //         github: profile._json
+        //     });
+        //     console.log(user)
+        //     //   user.save(() => done(err, user));
+        //     } else {
+        //     return done(err, user);
+        //     }
+        //     });
+    }
+));
+const isAuth = (req, res , next)=> {
+    if (req.user){
+        next();
+    }else {
+        res.redirect('/login')
+    }
+}
+app.get('/auth/github',
+    passport.authenticate('github', { scope: [ 'user:email' ] }),
+    function(req, res){
+        // The request will be redirected to GitHub for authentication, so this
+        // function will not be called.
+    });
+app.get('/auth/github/callback', 
+    passport.authenticate('github', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/');
+    });
 
 app.listen(port, () => {
     console.log(`Server ready:  http://localhost:${port}`);
