@@ -20,7 +20,6 @@ app.get('/getAccesToken', async function(req, res){
     req.query.code;
     const params ="?client_id"
     await fetch("https")
-
 })
 // server initialization
 
@@ -33,7 +32,7 @@ app.use(session({
     saveUninitialized: false, 
     cookie:{
     httpOnly:true,
-    secure:false,
+    secure:true,
     maxAge:24 * 60 * 60 *1000 
 } }));
 
