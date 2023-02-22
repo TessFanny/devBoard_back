@@ -21,6 +21,20 @@ const rssController = {
            res.status(400).json({message: err.message})
         }
      },
+     addRss: async (req,res)=>{
+      try {
+      
+          const rss = await new Rss()
+          const newrss = await rss.insertRssByUser(req.params.id,{
+              name: req.body.name,
+              url: req.body.url,             
+          })
+          res.status(201).json(newrss);
+          console.log(newrss);
+      } catch (error) {
+          res.status(400).json({message: error.message})
+      }
+      },
      modifyRss: async (req, res)=> {
         try {
   

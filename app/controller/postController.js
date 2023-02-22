@@ -1,7 +1,7 @@
 const Post = require('../model/postModel.js');
 
 const postController = {
-    getposts: async (req,res)=>{
+    getPosts: async (req,res)=>{
     try {
         const posts = await Post.findAll()
         console.log(posts);
@@ -10,7 +10,39 @@ const postController = {
             res.status(404).json({message: error.message})
         }   
     },
-    getOnepost: async (req,res) => {
+    
+    getPostsByUser: async (req, res)=>{
+        
+        try {
+            const posts = await Post.findAll({where:
+                { user_id : req.params.id} 
+               })
+               console.log(posts);
+               res.json(posts) 
+        } catch (error) {
+            res.status(404).json({message: error.message})
+        }
+        
+    }, 
+
+    addPost: async (req,res)=>{
+    try {
+    
+        const post = await new Post()
+        const newPost = await post.create({
+            title: req.body.title,
+            content: req.body.content,
+            user_id: req.params.id,
+            updated_at: req.body.updated_at,
+            like: req.body.like
+        })
+        res.status(201).json(newPost);
+        console.log(newPost);
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+    },
+    getOnePost: async (req,res) => {
         try {
   
         const post = new Post();
@@ -22,7 +54,7 @@ const postController = {
            res.status(400).json({message: err.message})
         }
      },
-     modifypost: async (req, res)=> {
+     modifyPost: async (req, res)=> {
         try {
   
            const post = new Post();
@@ -34,7 +66,7 @@ const postController = {
            res.status(400).json({message: err.message})
         }
      },
-     deletepost: async (req,res) => {
+     deletePost: async (req,res) => {
         try {
            
            const post = new Post();
