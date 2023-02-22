@@ -23,6 +23,7 @@ const authController = {
             res.status(500).json({ error: err.message });
         }
     },
+    
     loginUser: async(req,res)=>{
         try{
             const {email, password}= req.body;
@@ -34,7 +35,8 @@ const authController = {
 
             if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})
 
-            const token =jwt.sign({id: user._id}, process.env.JWT_SECRET);
+            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+
             delete newUser.password;
             res.status(200).json({token, newUser}); 
         } catch(err) {

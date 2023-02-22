@@ -77,6 +77,7 @@ passport.use(new GitHubStrategy({
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: 'http://localhost:3000/auth/github/callback'
 }, (accessToken, refreshToken, profile, done) => {
+  console.log(profile);
   pool.query('SELECT * FROM "user" WHERE username = $1', [profile.username], (error, results) => {
     if (error) {
       console.error('Error querying the database', error);
@@ -148,13 +149,13 @@ app.use(passport.session());
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/dashboard.html");
 });
-app.get("/page/login", (req, res) => {
+app.get("/github/login", (req, res) => {
   res.sendFile(__dirname + "/login.html");
 });
 
 app.get("/logout", (req, res) => {
     req.logOut(()=>{
-        res.redirect("/page/login")
+        res.redirect("/github/login")
     })
     
   }); 
@@ -165,6 +166,7 @@ app.get(
   passport.authenticate("github", { failureRedirect: "/page/login" }),
   function (req, res) {
     res.redirect("/");
+    //res.json({ message:'user successfully authenticated'})
   }
 );
 // SWAGGER
