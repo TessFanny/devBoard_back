@@ -8,8 +8,6 @@ const authController = {
     try {
         if (req.body.password !== req.body.passwordConfirm) return res.status(400).json( {msg: 'les mots de passe  ne correspondent pas'})
         const salt = await bcrypt.genSalt(10);
-        console.log("REQ", req.body)
-
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
         const savedUser =  new User()
