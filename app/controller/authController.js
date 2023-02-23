@@ -48,7 +48,7 @@ const authController = {
             
             if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})
 
-            const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+            const token = jwt.sign({id: newUser.id}, process.env.JWT_SECRET);
 
             delete newUser.password;
             res.status(200).json({token, newUser}); 
