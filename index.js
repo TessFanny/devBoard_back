@@ -13,32 +13,32 @@ const expressJSDocSwagger = require("express-jsdoc-swagger");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 3001;
+const bodyParser = require('body-parser')
+const helmet = require('helmet'); 
+const morgan = require('morgan')
+// server initialization
 
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.json());
-
 app.use(cors());
 
-// get file name
-//const filename = fileURLToPath(import.meta.url);
-// get directory
+// const filename = fileURLToPath(import.meta.url);
 // const _DirectoryName = path.dirname(filename);
 
-// //
-// app.use(helmet());
-// app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 
-// // save HTTP request logging information// of the application in the "common" logging format.
+// save HTTP request logging information// of the application in the "common" logging format.
 
-// app.use(morgan("common"));
+app.use(morgan("common"));
 
-// // allows the application to handle encoded JSON and URL data
-// app.use(bodyParser.json({limit:"50mb", extended:true}));
-// app.use(bodyParser.urlencoded({limit:"50mb", extended:true}));
+// allows the application to handle encoded JSON and URL data 
 
-// // allows cross-origin HTTP requests, i.e. requests coming from a domain different from that of the application.
+app.use(bodyParser.json({limit:"50mb", extended:true}));
+app.use(bodyParser.urlencoded({limit:"50mb", extended:true}));
 
-// // allows serving static files within a particular route
+//  allows serving static files within a particular route
 
 // app.use("/assets", express.static(path.join(_DirectoryName, 'public/assets')));
 

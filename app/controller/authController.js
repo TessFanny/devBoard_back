@@ -7,7 +7,7 @@ const authController = {
     registerUser: async (req, res) => {
     try {
         if (req.body.password !== req.body.passwordConfirm) return res.status(400).json( {msg: 'les mots de passe  ne correspondent pas'})
-        const salt = await bcrypt.genSalt();
+        const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         
         const savedUser =  new User()
@@ -42,7 +42,6 @@ const authController = {
             const user = new User();
             const newUser = await user.findByEmail(email);
             if (!newUser) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
-           
             const passwordCompare = await bcrypt.compare(password, newUser.password);
 
             if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})
