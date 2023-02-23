@@ -44,14 +44,13 @@ const postController = {
     },
     getOnePost: async (req,res) => {
         try {
-  
-        const post = new Post();
-        const newPost = await post.findByPk(req.params.id);
-        res.status(200).json(newPost)
-  
+            const post = new Post();
+            const newPost = await post.findByPk(req.params.id);
+            res.status(200).json(newPost)
+            
         } catch(err) {
-  
-           res.status(400).json({message: err.message})
+            
+            res.status(400).json({message: err.message})
         }
      },
      modifyPost: async (req, res)=> {

@@ -11,16 +11,19 @@ const authController = {
             const hashedPassword = await bcrypt.hash(req.body.password, salt);
             
             const savedUser =  new User()
-            const user = await savedUser.findByField("email", req.body.email)
-            
+            let user = null
+            user = await savedUser.findByField("email", req.body.email)
+            console.log(user)
             if (user.email) {
                 res.status(404).json('user with that email already exist')
             } else if( user.username) {
                 res.status(404).json('user with that  username already exist')
             } else if (user.githubId) {
-                const newUser = await savedUser.update({
-
-                })
+                    const newUser = await savedUser.update(user.id,{
+                            username: req.body.username,
+                            email: req.body.email,
+                            password: hashedPassword,
+                        })                    
                 res.status(201).json(newUser);
             } else {
                 const newUser = await savedUser.create({
@@ -45,7 +48,7 @@ const authController = {
             
             if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})
 
-            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+            const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
 
             delete newUser.password;
             res.status(200).json({token, newUser}); 

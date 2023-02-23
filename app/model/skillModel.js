@@ -12,8 +12,8 @@ class Skill extends Core {
   async findSkillByUser(id) {
     const preparedQuery = {
       text: `SELECT "skill".* FROM "skill_id" JOIN "user_has_skill" 
-           ON skill.id = user_has_skill.skill_id  
-           WHERE user_has_skill.user_id = $1;`,
+          ON skill.id = user_has_skill.skill_id  
+          WHERE user_has_skill.user_id = $1;`,
       values: [id],
     };
 
@@ -40,11 +40,11 @@ class Skill extends Core {
 
     const preparedQuery = {
       text: `
-                 INSERT INTO "${this.tableName}"
-                 (${fields})
-                 VALUES (${placeholders})
-                 RETURNING id
-           `,
+                INSERT INTO "${this.tableName}"
+                (${fields})
+                VALUES (${placeholders})
+                RETURNING id
+          `,
       values,
     };
     const result = await pool.query(preparedQuery);

@@ -2,6 +2,6 @@
 
 BEGIN;
 
-ALTER TABLE "user" DROP COLUMN githubId;
+ALTER TABLE "user" DROP COLUMN githubid;
 
 COMMIT;

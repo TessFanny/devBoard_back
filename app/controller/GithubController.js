@@ -50,18 +50,18 @@ const GithubController = {
                 return response.json();
 
             }).then( async (data) => {
-                console.log(data);
-                const profile = data.
-                let user = User.findOne({ githubId: data.profile.id })
-
+                console.log("withoutjson",data);
+                console.log(data.json())
+                const profile = data.profile
+                console.log(profile)
+                let user = null;
+                user = await savedUser.findByField("githubid", data.profile.id)
                 if (!user) {
                     // create new user in database
                     const savedUser =  new User()
                     user = await savedUser.create({
-                        username: profile.username,
                         githubId: profile.id,
                         name: profile.displayName,
-                        email: profile.emails[0].value
                         })
                     return user
                 }
