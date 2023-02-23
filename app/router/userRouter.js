@@ -27,7 +27,6 @@ const verifyToken = require('../middleware/auth.js')
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-
 userRouter.get('/users', userController.getUsers);
 
 
@@ -37,6 +36,6 @@ userRouter.get('/user/:id', verifyToken, userController.getOneUser);
 userRouter.patch('/user/:id',verifyToken, userController.modifyUser);
 
 
-userRouter.delete('/user/:id',verifyToken, userController.deleteUser);
+userRouter.delete('/user/:id', userController.deleteUser);
 
 module.exports = userRouter

@@ -14,8 +14,6 @@ const fileURLTopath = require ('url');
 
 const app = express();
 
-// server initialization
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
@@ -53,43 +51,41 @@ app.use(bodyParser.urlencoded({limit:"50mb", extended:true}));
 
 // const upload = multer({storage});
 
-// REDIRECTION ROUTER 
+// REDIRECTION ROUTER
 
 app.use(userRouter);
 app.use(authRouter);
-app.use(githubRouter);
-//app.use(postRouter);
- //app.use(rssRouter);
+app.use(postRouter);
+app.use(rssRouter);
+app.use(skillRouter);
 
-const port = process.env.PORT || 3000;
 
 
 // SWAGGER CONFIG //
 
 const options = {
-    info: {
-        version: '1.0.0',
-        title: 'Oblog',
-        license: {
-            name: 'MIT',
-        },
+  info: {
+    version: "1.0.0",
+    title: "Oblog",
+    license: {
+      name: "MIT",
     },
-    // Chemin de la doc
-    swaggerUIPath: '/devboard',
-    security: {
-        BasicAuth: {
-            type: 'http',
-            scheme: 'basic',
-        },
+  },
+  // Chemin de la doc
+  swaggerUIPath: "/devboard",
+  security: {
+    BasicAuth: {
+      type: "http",
+      scheme: "basic",
     },
-    baseDir: __dirname,
-    // Glob pattern to find your jsdoc files (multiple patterns can be added in an array)
-    filesPattern: './**/*.js',
+  },
+  baseDir: __dirname,
+  // Glob pattern to find your jsdoc files (multiple patterns can be added in an array)
+  filesPattern: "./**/*.js",
 };
 
 expressJSDocSwagger(app)(options);
 
 app.listen(port, () => {
-    console.log(`Server ready:  http://localhost:${port}`);
-
+  console.log(`Server ready:  http://localhost:${port}`);
 });

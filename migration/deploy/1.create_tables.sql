@@ -8,8 +8,8 @@ CREATE TABLE "user" (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     firstname text,
     lastname text,
-    username text NOT NULL,
-    email text NOT NULL,
+    username text NOT NULL UNIQUE,
+    email text NOT NULL UNIQUE,
     password text NOT NULL,
     image_path VARCHAR(60),
     role text default 'member' 
@@ -32,7 +32,7 @@ CREATE TABLE post (
 CREATE TABLE rss_flow (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text default '',
-    url VARCHAR,
+    url VARCHAR(250),
     created_at TIMESTAMPTZ DEFAULT NOW(), 
     updated_at TIMESTAMPTZ DEFAULT NULL
 );
