@@ -2,7 +2,7 @@
 
 
 # je prends l'identité de devboard
-export PGUSER=postgres
+export PGUSER=spedata
 
 # je supprime la BDD
 dropdb devboard
@@ -11,7 +11,7 @@ dropdb devboard
 dropuser admin_devboard
 
 # je veux lancer le script pour la creation du rôle et de la db
-psql -f init_db.sql -d postgres
+psql -f init_db.sql -d devboard
 
 # j'initialise SQITCH
 sqitch init devBoard --engine pg --target db:pg:devboard

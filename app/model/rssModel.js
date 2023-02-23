@@ -49,7 +49,14 @@ class Rss extends Core {
         };
         const result = await pool.query(preparedQuery);
         const rssID = result.rows[0].id;
-        pool.query('INSERT INTO rss_has_user (rss_flow_id, user_id) VALUES ($1, $2)', [rssID, id])
+       await pool.query('INSERT INTO rss_has_user (rss_flow_id, user_id) VALUES ($1, $2)', [rssID, id])
      }
+     
+     async deleteRss(id){
+      await pool.query('DELETE FROM "rss_has_user" WHERE rss_flow_id = $1', [id])
+
+      const result = await pool.query(`DELETE FROM "${this.tableName}" WHERE id = $1`, [id]);
+      return !!result.rowCount;
+     } 
 }
 module.exports = Rss;

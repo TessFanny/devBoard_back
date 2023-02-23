@@ -51,7 +51,7 @@ const rssController = {
         try {
            
            const rss = new Rss();
-           const newRss = await rss.delete(req.params.id);
+           const newRss = await rss.deleteRss(req.params.id);
            res.status(200).json(newRss)
   
         } catch(err) {

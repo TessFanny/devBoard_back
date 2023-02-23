@@ -10,10 +10,10 @@ class User extends Core {
         this.tableName = 'user'
     }
 
-    async findByEmail(email) {
+    async findByField(field, params) {
         const preparedQuery = {
-            text: `SELECT "username", "email", "password" FROM "${this.tableName}" WHERE email = $1`,
-            values: [email],
+            text: `SELECT  ${field} FROM "${this.tableName}" WHERE ${field} = $1`,
+            values: [params],
         };
         
         const result = await pool.query(preparedQuery);

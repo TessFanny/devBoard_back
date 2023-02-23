@@ -36,6 +36,6 @@ userRouter.get('/user/:id', verifyToken, userController.getOneUser);
 userRouter.patch('/user/:id',verifyToken, userController.modifyUser);
 
 
-userRouter.delete('/user/:id',verifyToken, userController.deleteUser);
+userRouter.delete('/user/:id', userController.deleteUser);
 
 module.exports = userRouter
