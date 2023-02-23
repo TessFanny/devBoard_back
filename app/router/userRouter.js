@@ -27,6 +27,7 @@ const verifyToken = require('../middleware/auth.js')
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
+
 userRouter.get('/users', userController.getUsers);
 
 

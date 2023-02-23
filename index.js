@@ -10,7 +10,6 @@ const morgan = require('morgan');
 const path = require('path');
 const fileURLTopath = require ('url');
 
-
 // SERVER CONFIGURATION //
 
 const app = express();

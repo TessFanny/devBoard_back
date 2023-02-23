@@ -36,6 +36,42 @@ const GithubController = {
             console.log(data);
             res.status(200).json(data)
         })
+    },
+    findOrCreatebygithub: async (req, res)=> {
+        try {
+            req.get("Authorization"); // Bearer ACCESSTOKEN
+            await fetch("https://api.github.com/user", {
+                method: "GET",
+                headers: {
+                    "Authorization" : req.get("Authorization")
+                }
+            }).then((response) => {
+
+                return response.json();
+
+            }).then( async (data) => {
+                console.log(data);
+                const profile = data.
+                let user = User.findOne({ githubId: data.profile.id })
+
+                if (!user) {
+                    // create new user in database
+                    const savedUser =  new User()
+                    user = await savedUser.create({
+                        username: profile.username,
+                        githubId: profile.id,
+                        name: profile.displayName,
+                        email: profile.emails[0].value
+                        })
+                    return user
+                }
+            const token =jwt.sign({id: user._id}, process.env.JWT_SECRET);
+            res.status(200).json({token, user});
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: err.message });
+        }
     }
 }
 module.exports = GithubController; 
