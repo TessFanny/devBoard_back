@@ -2,13 +2,13 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors')
-const {userRouter, authRouter, githubRouter}  = require("./app/router")
+const {userRouter, authRouter,rssRouter,postRouter,skillRouter, githubRouter}  = require("./app/router")
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 const multer = require('multer');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const path = require('path');
-const fileURLTopath = require ('url');
+// const path = require('path');
+// const fileURLTopath = require ('url');
 
 // SERVER CONFIGURATION //
 
@@ -58,34 +58,34 @@ app.use(authRouter);
 app.use(postRouter);
 app.use(rssRouter);
 app.use(skillRouter);
-
+app.use(githubRouter);
 
 
 // SWAGGER CONFIG //
 
 const options = {
-  info: {
-    version: "1.0.0",
-    title: "Oblog",
-    license: {
-      name: "MIT",
+    info: {
+        version: "1.0.0",
+        title: "Oblog",
+        license: {
+        name: "MIT",
+        },
     },
-  },
-  // Chemin de la doc
-  swaggerUIPath: "/devboard",
-  security: {
-    BasicAuth: {
-      type: "http",
-      scheme: "basic",
+    // Chemin de la doc
+    swaggerUIPath: "/devboard",
+    security: {
+        BasicAuth: {
+        type: "http",
+        scheme: "basic",
+        },
     },
-  },
-  baseDir: __dirname,
-  // Glob pattern to find your jsdoc files (multiple patterns can be added in an array)
-  filesPattern: "./**/*.js",
+    baseDir: __dirname,
+    // Glob pattern to find your jsdoc files (multiple patterns can be added in an array)
+    filesPattern: "./**/*.js",
 };
 
 expressJSDocSwagger(app)(options);
 
 app.listen(port, () => {
-  console.log(`Server ready:  http://localhost:${port}`);
+    console.log(`Server ready:  http://localhost:${port}`);
 });

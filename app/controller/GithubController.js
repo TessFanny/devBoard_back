@@ -37,7 +37,7 @@ const GithubController = {
             res.status(200).json(data)
         })
     },
-    findOrCreatebygithub: async (req, res)=> {
+    updateOrCreate: async (req, res)=> {
         try {
             req.get("Authorization"); // Bearer ACCESSTOKEN
             await fetch("https://api.github.com/user", {
