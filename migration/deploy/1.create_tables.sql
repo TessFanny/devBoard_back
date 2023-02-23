@@ -8,9 +8,9 @@ CREATE TABLE "user" (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     firstname text,
     lastname text,
-    username text NOT NULL UNIQUE,
-    email text NOT NULL UNIQUE,
-    password text NOT NULL,
+    username text UNIQUE,
+    email text UNIQUE,
+    password text ,
     image_path VARCHAR(60),
     role text default 'member' 
 );
