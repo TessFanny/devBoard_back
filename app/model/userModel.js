@@ -24,6 +24,27 @@ class User extends Core {
         
         return result.rows[0];
     }
+    async updateUser(body, file, id){
+        try {
+          const sqlQuery = `UPDATE "user" 
+                SET firstname = $1,
+                lastname = $2           
+                username = $3           
+                email = $4          
+                password = $5           
+                image_path = $6           
+                role = $7           
+                 WHERE id = $8;
+                `;
+          const values = [body.firstname, body.lastname, body.username,body.email, body.password, file, body.role, id];
+          // console.log(sqlQuery);
+          console.log(values);
+          await pool.query(sqlQuery, values);
+    
+        } catch (error) {
+            console.log(error);
+        }
+      }
 
     // async checkPassword() {
     //     // utilisateur de test :

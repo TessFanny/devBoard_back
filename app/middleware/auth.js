@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
         if(!token){
             return res.status(403).send("Accès Interdit");
         }
-        if(token.startsWith("Bearer ")){
+        if(token.startsWith("Bearer")){
             token = token.slice(7, token.length).trimLeft();
             console.log(`token slice :${token}`)
         }
@@ -18,7 +18,7 @@ const jwt = require('jsonwebtoken')
         req.user = verified;
         next();
         
-    } catch(err) {
+    } catch(err){
         console.log(err)
         res.status(500).json({error: err.message})
     }

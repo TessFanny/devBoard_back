@@ -1,6 +1,6 @@
 const User = require('../model/userModel.js')
 const bcrypt = require('bcrypt')
-
+const upload = require('../middleware/uploadImage');
 const userController = {
    getUsers: async (req, res)=>{
       try {
@@ -38,11 +38,13 @@ const userController = {
          res.status(400).json({message: err.message})
       }
    },
-   modifyUser: async (req, res)=> {
-      try {
 
+   modifyUser: async (req, res)=> {
+      console.log(req.file);
+      try {
          const user = new User();
-         const newUser = await user.update(req.params.id, req.body);
+         const newUser = await user.updateUser(req.body, req.file.filename, req.params.id);
+         console.log(newUser);
          res.status(200).json(newUser)
 
       } catch(err) {
@@ -50,6 +52,7 @@ const userController = {
          res.status(400).json({message: err.message})
       }
    },
+
    deleteUser: async (req,res) => {
       try {
          

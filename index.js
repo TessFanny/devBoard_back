@@ -16,7 +16,17 @@ const port = process.env.PORT || 3001;
 const bodyParser = require('body-parser')
 const helmet = require('helmet'); 
 const morgan = require('morgan')
+const multer  = require('multer')
+const path = require('path')
 // server initialization
+
+
+const upload = multer({ dest: './app/images' })
+app.post('/stats', upload.single('uploaded_file'), function (req, res) {
+   // req.file is the name of your file in the form above, here 'uploaded_file'
+   // req.body will hold the text fields, if there were any 
+   console.log(req.file, req.body)
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,9 +35,10 @@ app.use(cors());
 
 // const filename = fileURLToPath(import.meta.url);
 // const _DirectoryName = path.dirname(filename);
-
+//app.use(multer);
+app.use("/app/images", express.static(path.join(__dirname, "images")))
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
+//app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 
 // save HTTP request logging information// of the application in the "common" logging format.
 
