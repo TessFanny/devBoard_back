@@ -7,24 +7,16 @@ const authController = {
     registerUser: async (req, res) => {
         try {
             if (req.body.password !== req.body.passwordConfirm) return res.status(400).json( {msg: 'les mots de passe  ne correspondent pas'})
+            
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(req.body.password, salt);
             
             const savedUser =  new User()
-            let user = null
-            user = await savedUser.findByField("email", req.body.email)
-            console.log(user)
+            const user = await savedUser.findByField("email", req.body.email)
             if (user.email) {
                 res.status(404).json('user with that email already exist')
             } else if( user.username) {
                 res.status(404).json('user with that  username already exist')
-            } else if (user.githubId) {
-                    const newUser = await savedUser.update(user.id,{
-                            username: req.body.username,
-                            email: req.body.email,
-                            password: hashedPassword,
-                        })                    
-                res.status(201).json(newUser);
             } else {
                 const newUser = await savedUser.create({
                     username: req.body.username,
@@ -44,8 +36,7 @@ const authController = {
             const user = new User();
             const newUser = await user.findByEmail(email);
             if (!newUser) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
-            const passwordCompare = await bcrypt.compare(password, newUser.password);
-            
+            const passwordCompare = await bcrypt.compare(password, newUser.password);            
             if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})
 
             const token = jwt.sign({id: newUser.id}, process.env.JWT_SECRET);
