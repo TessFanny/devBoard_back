@@ -3,8 +3,8 @@ const userRouter =  express.Router();
 const userController = require("../controller/userController.js");
 const verifyToken = require('../middleware/auth.js');
 const multer  = require('multer')
-//const upload = require('../middleware/uploadImage');
-const upload = multer({dest: 'app/images/'});
+const upload = require('../middleware/uploadImage');
+//const upload = multer({dest: 'app/images/'});
 
 // CUSTUM TYPE/SCHEMA
 /**
@@ -35,8 +35,9 @@ userRouter.get('/users', userController.getUsers);
 userRouter.get('/user/:id', verifyToken, userController.getOneUser);
 
 
-userRouter.patch('/user/:id', upload.single('file'), userController.modifyUser); /** here */
+userRouter.patch('/user/:id', userController.modifyUser); /** here */
 
+userRouter.patch('/user/:id/profile', upload.single('file'), userController.updatePicture)
 
 userRouter.delete('/user/:id', userController.deleteUser);
 

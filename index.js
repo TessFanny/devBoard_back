@@ -36,7 +36,7 @@ app.use(cors());
 // const filename = fileURLToPath(import.meta.url);
 // const _DirectoryName = path.dirname(filename);
 //app.use(multer);
-app.use("/app/images", express.static(path.join(__dirname, "images")))
+app.use("/public/images", express.static(path.join(__dirname, "images")))
 app.use(helmet());
 //app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 
