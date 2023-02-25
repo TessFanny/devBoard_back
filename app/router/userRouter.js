@@ -33,7 +33,7 @@ userRouter.get('/users', userController.getUsers);
 userRouter.get('/user/:id', verifyToken, userController.getOneUser);
 
 
-userRouter.patch('/user/:id',verifyToken, userController.modifyUser);
+userRouter.patch('/user/:id', userController.modifyUser);
 
 
 userRouter.delete('/user/:id', userController.deleteUser);

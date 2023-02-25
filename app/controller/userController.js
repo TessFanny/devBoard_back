@@ -43,6 +43,7 @@ const userController = {
 
          const user = new User();
          const newUser = await user.update(req.params.id, req.body);
+         delete newUser.password;
          res.status(200).json(newUser)
 
       } catch(err) {
