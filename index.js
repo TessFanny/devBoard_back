@@ -6,8 +6,10 @@ const {
   authRouter,
   postRouter,
   rssRouter,
-  skillRouter
+  skillRouter,
+  githubRouter
 } = require("./app/router");
+
 const expressJSDocSwagger = require("express-jsdoc-swagger");
 
 require("dotenv").config();
@@ -62,6 +64,7 @@ app.use(authRouter);
 app.use(postRouter);
 app.use(rssRouter);
 app.use(skillRouter);
+app.use(githubRouter);
 
 
 // SWAGGER
