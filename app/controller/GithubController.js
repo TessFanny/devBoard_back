@@ -32,5 +32,18 @@ const GithubController = {
         res.status(200).json(data);
       });
   },
+  getUserRepos:  async (req, res) => {
+    req.get('Authorization'); // Bearer ACCESSTOKEN
+    await fetch('https://api.github.com/user/repos', {
+      method: 'GET',
+      headers: {
+        "Authorization": req.get('Authorization'),
+      },
+    }).then((response) => {
+        return response.json();
+      }).then((data) => {
+        res.status(200).json(data);
+      });
+  },
 };
 module.exports = GithubController;
