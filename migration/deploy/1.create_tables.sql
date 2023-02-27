@@ -9,7 +9,7 @@ CREATE TABLE "user" (
     firstname text,
     lastname text,
     username text NOT NULL UNIQUE,
-    email email_address NOT NULL UNIQUE,
+    email text NOT NULL UNIQUE,
     password text NOT NULL,
     image_path VARCHAR(60),
     role text default 'member' 
@@ -17,7 +17,7 @@ CREATE TABLE "user" (
 CREATE TABLE skill (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text default '',
-    level pint default 0
+    level int default 0
 );
 CREATE TABLE post (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -26,7 +26,7 @@ CREATE TABLE post (
     user_id  int REFERENCES "user"(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NULL,
-    "like" pint DEFAULT 0
+    "like" int DEFAULT 0
 ); 
 
 CREATE TABLE feed (
