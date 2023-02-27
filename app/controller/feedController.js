@@ -1,10 +1,17 @@
 const Feed = require('../model/feedModel.js');
+let Parser = require('rss-parser');
+let parser = new Parser();
+
 
 const feedController = {
     getFeed: async (req,res)=>{
     try {
-        const feed = await Feed.findAll()
-        console.log(feed);
+        const feeds = await Feed.findAll()
+        console.log(feeds);
+      //   (async (feeds) => {
+            for (feed of feeds){
+            let feedtotal =feedtotal.push(await parser.parseURL(feed.url));
+            }
         res.status(200).json(feed)       
         } catch (error) {
             res.status(404).json({message: error.message})
