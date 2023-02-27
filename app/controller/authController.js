@@ -10,7 +10,7 @@ const authController = {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         
-        const savedUser =  new User()
+        const savedUser =  new User();
        
         const userEmail = await savedUser.findByField("email",req.body.email)
         const userUsername = await savedUser.findByField("username", req.body.username)

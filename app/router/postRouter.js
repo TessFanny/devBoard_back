@@ -24,7 +24,6 @@ const postController = require("../controller/postController.js");
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-
 postRouter.get("/posts", postController.getPosts);
 
 
