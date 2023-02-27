@@ -28,12 +28,12 @@ app.use(cors());
 // const filename = fileURLToPath(import.meta.url);
 // const _DirectoryName = path.dirname(filename);
 
-//app.use(helmet());
-//app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 
 // save HTTP request logging information// of the application in the "common" logging format.
 
-//app.use(morgan("common"));
+app.use(morgan("common"));
 
 // allows the application to handle encoded JSON and URL data 
 
@@ -71,6 +71,7 @@ const options = {
 };
 
 expressJSDocSwagger(app)(options);
+
 // REDIRECTION ROUTER
 
 app.use(userRouter);
