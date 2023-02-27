@@ -15,7 +15,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 const bodyParser = require('body-parser')
 const helmet = require('helmet'); 
-const morgan = require('morgan')
+//const morgan = require('morgan')
 const multer  = require('multer')
 const path = require('path')
 // server initialization
@@ -36,8 +36,8 @@ app.use(cors());
 // const filename = fileURLToPath(import.meta.url);
 // const _DirectoryName = path.dirname(filename);
 //app.use(multer);
-app.use("/public/images", express.static(path.join(__dirname, "images")))
-app.use(helmet());
+//app.use("/public/images", express.static(path.join(__dirname, "images")))
+//app.use(helmet());
 //app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 
 // save HTTP request logging information// of the application in the "common" logging format.
@@ -86,7 +86,7 @@ const options = {
     },
   },
   // Chemin de la doc
-  swaggerUIPath: "/devboard",
+  //swaggerUIPath: "/devboard",
   security: {
     BasicAuth: {
       type: "http",
