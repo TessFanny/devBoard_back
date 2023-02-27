@@ -2,14 +2,18 @@
 
 BEGIN;
 
-DROP TABLE IF EXISTS "user", skill, post, rss_flow, rss_has_user, user_has_skill;
+CREATE DOMAIN pint AS int CHECK(VALUE >= 0);
+
+CREATE DOMAIN email_address AS text CHECK( VALUE ~  '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
+
+DROP TABLE IF EXISTS "user", skill, post, feed, rss_has_user, user_has_skill;
 
 CREATE TABLE "user" (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     firstname text,
     lastname text,
-    username text NOT NULL,
-    email text NOT NULL,
+    username text NOT NULL UNIQUE,
+    email email_address NOT NULL UNIQUE,
     password text NOT NULL,
     image_path VARCHAR(60),
     role text default 'member' 
@@ -17,29 +21,29 @@ CREATE TABLE "user" (
 CREATE TABLE skill (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text default '',
-    level text default ''
+    level pint default 0
 );
 CREATE TABLE post (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    title text default '',
-    content text default '',
+    title text NOT NULL  default '',
+    content text NOT NULL default '',
     user_id  int REFERENCES "user"(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NULL,
-    "like" int DEFAULT 0
+    "like" pint DEFAULT 0
 ); 
 
-CREATE TABLE rss_flow (
+CREATE TABLE feed (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text default '',
-    url VARCHAR,
+    url VARCHAR(250),
     created_at TIMESTAMPTZ DEFAULT NOW(), 
     updated_at TIMESTAMPTZ DEFAULT NULL
 );
 
-CREATE TABLE rss_has_user (
+CREATE TABLE feed_has_user (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    rss_flow_id int REFERENCES rss_flow(id),
+    feed_id int REFERENCES feed(id),
     user_id  int REFERENCES "user"(id) ON DELETE CASCADE
 );
 
@@ -48,4 +52,5 @@ CREATE TABLE user_has_skill(
     skill_id int REFERENCES skill(id),
     user_id int REFERENCES "user"(id) ON DELETE CASCADE
 );
+
 COMMIT;
