@@ -21,11 +21,12 @@ const verifyToken = require("../middleware/auth.js");
  * GET /api/posts
  * @summary  génère tous les posts
  * @type {Post}
+ * @security TokenAuth
  * @tags Post
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get("/posts",verifyToken, postController.getPosts);
+postRouter.get("/posts", verifyToken, postController.getPosts);
 
 
 /**
@@ -79,7 +80,7 @@ postRouter.patch("/user/user_id/post/:id", postController.modifyPost);
 
 /**
  * delete /api/user/{user_id}/post/{id}
- * @summary  suppresion de son post (utilisateur)
+ * @summary  suppression de son post (utilisateur)
  * @type {Post}
  * @tags Post
  * @param {number} id.path.required - id en entrée

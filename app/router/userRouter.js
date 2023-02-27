@@ -25,11 +25,12 @@ const upload = require('../middleware/uploadImage');
  * GET /api/users
  * @summary  génère tous les utilisateurs
  * @type {user}
+ * @security TokenAuth
  * @tags User
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-userRouter.get('/users', userController.getUsers);
+userRouter.get('/users',verifyToken, userController.getUsers);
 
 /**
  * GET /api/user/{id}
@@ -106,7 +107,7 @@ userRouter.patch('/user/:id/profile', upload.single('file'), userController.upda
 
 /**
  * DELETE /api/user/{id}
- * @summary  modifie les données  d'un utilisateur en fonction de son id
+ * @summary  supprime un utilisateur en fonction de son id
  * @type {user}
  * @tags User
  * @return {object} 200 - post response

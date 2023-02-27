@@ -14,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 const bodyParser = require("body-parser");
 
+
 // server initialization
 
 app.use(express.static("public"));
@@ -22,8 +23,20 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
+app.get('/',(req,res)=>{
+ res.send('index')
+})
+
+const multer = require('multer')
+
+getFile = function(req,res){
+  res.download('./public/images/'+req.params.path);
+}
+app.get('/getFile/:path}', getFile);
+
 // SWAGGER
 const expressJSDocSwagger = require("express-jsdoc-swagger");
+const { arrayParser } = require("pg-types");
 
 const options = {
   info: {
