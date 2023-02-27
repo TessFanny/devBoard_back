@@ -29,14 +29,10 @@ app.get('/',(req,res)=>{
 
 const multer = require('multer')
 
-// getFile = function(req,res){
-//   res.download('./public/images/'+req.params.path);
-// }
-
-app.get('/getFile/:path', function(req,res){
-  res.download('./public/images/'+req.params.path);
-  console.log("get file route");
-});
+function getFile(req,res){
+  res.download('./public/images/'+req.params.path)
+}
+app.get('/getFile/:path', getFile);
 
 // SWAGGER
 const expressJSDocSwagger = require("express-jsdoc-swagger");
