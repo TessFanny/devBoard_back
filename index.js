@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({limit:"50mb", extended:true}));
 
 // SWAGGER
 const expressJSDocSwagger = require("express-jsdoc-swagger");
-const expressJSDocSwagger = require("express-jsdoc-swagger");
+
 const options = {
   info: {
     version: "1.0.0",
