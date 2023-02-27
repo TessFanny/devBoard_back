@@ -2,17 +2,17 @@ const Core = require('./coreModel');
 
 const pool = require('../services/dbClient');
 
-class Rss extends Core {
-    static tableName = 'rss_flow'
+class Feed extends Core {
+    static tableName = 'feed'
     constructor(){
         super();
-        this.tableName = 'rss_flow'
+        this.tableName = 'feed'
     }
-    async findRssByUser(id) {
+    async findFeedByUser(id) {
         const preparedQuery = {
-           text: `SELECT "rss_flow".* FROM "rss_flow" JOIN "rss_has_user" 
-           ON rss_flow.id = rss_has_user.rss_flow_id  
-           WHERE rss_has_user.user_id = $1;`,
+           text: `SELECT "feed".* FROM "feed" JOIN "feed_has_user" 
+           ON feed.id = feed_has_user.feed_id  
+           WHERE feed_has_user.user_id = $1;`,
            values: [id],
         }; 
    
@@ -24,7 +24,7 @@ class Rss extends Core {
   
         return result.rows[0];
      }
-     async insertRssByUser(id, inputData){
+     async insertFeedByUser(id, inputData){
 
         const fields = [];
         const placeholders = [];
@@ -48,15 +48,15 @@ class Rss extends Core {
            values,
         };
         const result = await pool.query(preparedQuery);
-        const rssID = result.rows[0].id;
-       await pool.query('INSERT INTO rss_has_user (rss_flow_id, user_id) VALUES ($1, $2)', [rssID, id])
+        const feedID = result.rows[0].id;
+       await pool.query('INSERT INTO feed_has_user (feed_id, user_id) VALUES ($1, $2)', [feedID, id])
      }
      
-     async deleteRss(id){
-      await pool.query('DELETE FROM "rss_has_user" WHERE rss_flow_id = $1', [id])
+     async deleteFeed(id){
+      await pool.query('DELETE FROM "feed_has_user" WHERE feed_id = $1', [id])
 
       const result = await pool.query(`DELETE FROM "${this.tableName}" WHERE id = $1`, [id]);
       return !!result.rowCount;
      } 
 }
-module.exports = Rss;
+module.exports = Feed;

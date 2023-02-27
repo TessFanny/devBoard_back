@@ -2,11 +2,7 @@
 
 BEGIN;
 
-CREATE DOMAIN pint AS int CHECK(VALUE >= 0);
-
-CREATE DOMAIN email_address AS text CHECK( VALUE ~  '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
-
-DROP TABLE IF EXISTS "user", skill, post, feed, rss_has_user, user_has_skill;
+DROP TABLE IF EXISTS "user", skill, post, feed, feed_has_user, user_has_skill;
 
 CREATE TABLE "user" (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
