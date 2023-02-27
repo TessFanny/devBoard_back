@@ -116,4 +116,5 @@ userRouter.patch('/user/:id/profile', upload.single('file'), userController.upda
  */
 userRouter.delete('/user/:id', userController.deleteUser);
 
+
 module.exports = userRouter

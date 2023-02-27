@@ -23,16 +23,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
-app.get('/',(req,res)=>{
- res.send('index')
-})
 
-const multer = require('multer')
-
-function getFile(req,res){
-  res.download('./public/images/'+req.params.path)
-}
-app.get('/getFile/:path', getFile);
 
 // SWAGGER
 const expressJSDocSwagger = require("express-jsdoc-swagger");
