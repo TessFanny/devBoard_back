@@ -72,13 +72,13 @@ app.use(githubRouter);
 const options = {
   info: {
     version: "1.0.0",
-    title: "Oblog",
+    title: "Devboard",
     license: {
       name: "MIT",
     },
   },
   // Chemin de la doc
-  swaggerUIPath: "/devboard",
+  //swaggerUIPath: "/devboard",
   security: {
     BasicAuth: {
       type: "http",
