@@ -10,7 +10,7 @@ const authController = {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         
-        const savedUser =  new User()
+        const savedUser =  new User();
        
         const userEmail = await savedUser.findByField("email",req.body.email)
         const userUsername = await savedUser.findByField("username", req.body.username)
@@ -38,13 +38,14 @@ const authController = {
     
     loginUser: async(req,res)=>{
         try{
-            const {email, password}= req.body;
+            
             const user = new User();
-            const newUser = await findByField("email",req.body.email);
+            const newUser = await user.findByField("email",req.body.email);
+            console.log(newUser);
             if (!newUser) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
-            const passwordCompare = await bcrypt.compare(password, newUser.password);
+            const passwordCompare = await bcrypt.compare(req.body.password, newUser.password);
 
-            if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe ne correspond pas !"})
+            if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe est incorrect !"})
 
             const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
 

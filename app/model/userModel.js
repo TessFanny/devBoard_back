@@ -12,7 +12,7 @@ class User extends Core {
 
     async findByField(field, params) {
         const preparedQuery = {
-            text: `SELECT  ${field} FROM "${this.tableName}" WHERE ${field} = $1`,
+            text: `SELECT  * FROM "${this.tableName}" WHERE ${field} = $1`,
             values: [params],
         };
         

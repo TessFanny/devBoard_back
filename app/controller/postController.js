@@ -26,8 +26,7 @@ const postController = {
     }, 
 
     addPost: async (req,res)=>{
-    try {
-    
+    try {    
         const post = await new Post()
         const newPost = await post.create({
             title: req.body.title,
