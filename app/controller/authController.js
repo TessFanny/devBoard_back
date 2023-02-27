@@ -26,7 +26,10 @@ const authController = {
                 email: req.body.email,
                 password: hashedPassword,
             });
-        res.status(201).json(newUser);
+            const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET);
+
+            delete newUser.password;
+            res.status(201).json({token, newUser}); 
         }
         
 

@@ -33,7 +33,7 @@ app.use(cors());
 
 // save HTTP request logging information// of the application in the "common" logging format.
 
-//app.use(morgan("common"));
+app.use(morgan("common"));
 
 // allows the application to handle encoded JSON and URL data 
 
@@ -71,6 +71,7 @@ const options = {
 };
 
 expressJSDocSwagger(app)(options);
+
 // REDIRECTION ROUTER
 
 app.use(userRouter);

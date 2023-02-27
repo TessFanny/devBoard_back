@@ -40,11 +40,11 @@ class Skill extends Core {
 
     const preparedQuery = {
       text: `
-                 INSERT INTO "${this.tableName}"
-                 (${fields})
-                 VALUES (${placeholders})
-                 RETURNING id
-           `,
+                INSERT INTO "${this.tableName}"
+                (${fields})
+                VALUES (${placeholders})
+                RETURNING id
+          `,
       values,
     };
     const result = await pool.query(preparedQuery);

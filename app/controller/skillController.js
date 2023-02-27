@@ -3,8 +3,7 @@ const Skill = require("../model/skillModel.js");
 const skillController = {
   getSkills: async (req, res) => {
     try {
-      const skills = await Skill.findAll();
-    
+      const skills = await Skill.findAll();    
       res.status(200).json(skills);
     } catch (error) {
       res.status(404).json({ message: error.message });
