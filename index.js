@@ -80,7 +80,7 @@ app.use(skillRouter);
 const options = {
   info: {
     version: "1.0.0",
-    title: "Oblog",
+    title: "Devboard",
     license: {
       name: "MIT",
     },
