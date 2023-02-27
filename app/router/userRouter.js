@@ -30,9 +30,30 @@ const verifyToken = require('../middleware/auth.js')
 userRouter.get('/users', userController.getUsers);
 
 
+
+/**
+ * GET /user/{id}
+ * @summary  génère un utilisateur en fonction de son id
+ * @type {user}
+ * @tags User
+ * @return {object} 200 - post response
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 500 - Unexpected error
+ */
+
 userRouter.get('/user/:id', verifyToken, userController.getOneUser);
 
 
+
+/**
+ * PATCH /user/{id}
+ * @summary  modifie les données  d'un utilisateur en fonction de son id
+ * @type {user}
+ * @tags User
+ * @return {object} 200 - post response
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 500 - Unexpected error
+ */
 userRouter.patch('/user/:id', userController.modifyUser);
 
 
