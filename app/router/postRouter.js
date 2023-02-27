@@ -1,6 +1,7 @@
 const express = require("express");
 const postRouter = express.Router();
 const postController = require("../controller/postController.js");
+const verifyToken = require("../middleware/auth.js");
 
 
 // CUSTUM TYPE/SCHEMA
@@ -17,18 +18,18 @@ const postController = require("../controller/postController.js");
 
 
 /**
- * GET /posts
+ * GET /api/posts
  * @summary  génère tous les posts
  * @type {Post}
  * @tags Post
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get("/posts", postController.getPosts);
+postRouter.get("/posts",verifyToken, postController.getPosts);
 
 
 /**
- * GET /user/{id}/posts
+ * GET /api/user/{user_id}/posts
  * @summary  génère tous les posts d'un utilisateur en fonction de son id
  * @type {Post}
  * @tags Post
@@ -37,13 +38,53 @@ postRouter.get("/posts", postController.getPosts);
  * @return {object} 500 - Unexpected error
  */
 
-postRouter.get("/user/:id/posts", postController.getPostsByUser);
+postRouter.get("/user/:user_id/posts", postController.getPostsByUser);
 
-postRouter.post("/user/:id/post", postController.addPost);
 
+/**
+ * post /api/user/{user_id}/post
+ * @summary  post crée par un utilisateur
+ * @type {Post}
+ * @tags Post
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
+postRouter.post("/user/:user_id/post", postController.addPost);
+
+
+/**
+ * get /api/post/{id}
+ * @summary  génère un post à partir de l'id du post
+ * @type {Post}
+ * @tags Post
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
 postRouter.get("/post/:id", postController.getOnePost);
 
-postRouter.patch("/post/:id", postController.modifyPost);
 
-postRouter.delete("/post/:id", postController.deletePost);
+/**
+ * patch /api/user/{user_id}/post/{id}
+ * @summary  modification de son  post (utilisateur)
+ * @type {Post}
+ * @tags Post
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
+postRouter.patch("/user/user_id/post/:id", postController.modifyPost);
+
+
+/**
+ * delete /api/user/{user_id}/post/{id}
+ * @summary  suppresion de son post (utilisateur)
+ * @type {Post}
+ * @tags Post
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
+postRouter.delete("/user/user_id/post/:id", postController.deletePost);
 module.exports = postRouter;
