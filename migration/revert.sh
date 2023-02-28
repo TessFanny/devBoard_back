@@ -1,4 +1,4 @@
-export PGUSER=spedata
+export PGUSER=postgres
 
 # sqitch revert # supprime toutes les versions
 sqitch revert

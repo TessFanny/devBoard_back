@@ -77,4 +77,5 @@ feedRouter.patch("/user/:user_id/feed/:id", feedController.modifyFeed);
  * @return {object} 500 - Unexpected error
  */
 feedRouter.delete("/user/:user_id/feed/:id", feedController.deleteFeed);
+
 module.exports = feedRouter;

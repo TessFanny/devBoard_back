@@ -41,7 +41,7 @@ const userController = {
    },
 
    modifyUser: async (req, res)=> {
-     
+   
       try {
    const user = new User()       
          const userById = await user.findByPk(req.params.id);console.log(userById)

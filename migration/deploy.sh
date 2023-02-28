@@ -1,3 +1,3 @@
-export PGUSER=spedata
+export PGUSER=postgres
 
 sqitch deploy

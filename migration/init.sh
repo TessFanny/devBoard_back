@@ -2,7 +2,7 @@
 
 
 # je prends l'identité de devboard
-export PGUSER=spedata
+export PGUSER=postgres
 
 # je supprime la BDD
 dropdb devboard

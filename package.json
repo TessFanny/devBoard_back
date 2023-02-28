@@ -28,6 +28,7 @@
     "node-fetch": "^3.3.0",
     "path": "^0.12.7",
     "pg": "^8.9.0",
+    "rss-parser": "^3.12.0",
     "swagger-client": "^3.18.5"
   }
 }
