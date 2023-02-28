@@ -15,7 +15,7 @@ const postController = {
         
         try {
             const posts = await Post.findAll({where:
-                { user_id : req.params.id} 
+                { user_id : req.params.user_id} 
                })
                console.log(posts);
                res.json(posts) 
@@ -31,7 +31,7 @@ const postController = {
         const newPost = await post.create({
             title: req.body.title,
             content: req.body.content,
-            user_id: req.params.id,
+            user_id: req.params.user_id,
             updated_at: req.body.updated_at,
             like: req.body.like
         })

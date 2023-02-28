@@ -22,17 +22,18 @@ const upload = require('../middleware/uploadImage');
 
 
 /**
- * GET /users
+ * GET /api/users
  * @summary  génère tous les utilisateurs
  * @type {user}
+ * @security TokenAuth
  * @tags User
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-userRouter.get('/users', verifyToken, userController.getUsers);
+userRouter.get('/users',verifyToken, userController.getUsers);
 
 /**
- * GET /user/{id}
+ * GET /api/user/{id}
  * @summary  génère un utilisateur en fonction de son id
  * @type {user}
  * @tags User
@@ -43,7 +44,7 @@ userRouter.get('/users', verifyToken, userController.getUsers);
 
 
 /**
- * GET /user/{id}
+ * GET /api/user/{id}
  * @summary  génère un utilisateur en fonction de son id
  * @type {user}
  * @tags User
@@ -57,7 +58,7 @@ userRouter.get('/user/:id', verifyToken, userController.getOneUser);
 
 
 /**
- * PATCH /user/{id}
+ * PATCH /api/user/{id}
  * @summary  modifie les données  d'un utilisateur en fonction de son id
  * @type {user}
  * @tags User
@@ -69,7 +70,7 @@ userRouter.patch('/user/:id', userController.modifyUser);
 
 
 /**
- * PATCH /user/{id}
+ * PATCH /api/user/{id}
  * @summary  modifie les données  d'un utilisateur en fonction de son id
  * @type {user}
  * @tags User
@@ -80,8 +81,40 @@ userRouter.patch('/user/:id', userController.modifyUser);
 userRouter.patch('/user/:id', userController.modifyUser); /** here */
 
 
+
+
+// CUSTUM TYPE/SCHEMA
+/**
+ * A user
+ * @typedef {object} userProfile
+ * @property {string} image_path - chemin image de profil
+
+ * 
+ */
+
+/**
+ * PATCH /api/user/{id}/profile
+ * @summary  modifie les données  d'un utilisateur en fonction de son id
+ * @type {user}
+ * @tags User
+ * @return {object} 200 - formData response
+ * @param {userProfile} request.body.required - - multipart/form-data
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 500 - Unexpected error
+ */
 userRouter.patch('/user/:id/profile', upload.single('file'), userController.updatePicture)
 
+
+/**
+ * DELETE /api/user/{id}
+ * @summary  supprime un utilisateur en fonction de son id
+ * @type {user}
+ * @tags User
+ * @return {object} 200 - post response
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 500 - Unexpected error
+ */
 userRouter.delete('/user/:id', userController.deleteUser);
+
 
 module.exports = userRouter

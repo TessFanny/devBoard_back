@@ -83,8 +83,9 @@ const userController = {
       try {
          const user = new User()
          const userProfile = await user.updatePicture(`${req.file.filename}`, req.params.id)
+         const newUser = await user.findByPk(req.params.id)
          console.log(userProfile);
-         res.status(200).json(userProfile)
+         res.status(200).json(newUser)
       } catch (error) {
          res.status(400).json({message: err.message})
       }

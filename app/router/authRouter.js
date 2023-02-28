@@ -21,7 +21,7 @@ const authController = require('../controller/authController.js')
 
 
 /**
- * POST /register
+ * POST /api/register
  * @summary  permet à un utilisateur de s'enregistrer
  * @type {UserRegistered}
  * @tags User
@@ -45,7 +45,7 @@ authRouter.post("/register", authController.registerUser);
 
 
 /**
- * POST /login
+ * POST /api/login
  * @summary  permet à un utilisateur de se conencter
  * @type {UserLogged}
  * @tags User
