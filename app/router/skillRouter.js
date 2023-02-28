@@ -73,5 +73,7 @@ skillRouter.patch("/user/:user_id/skill/:id", skillController.modifySkill);
 
 skillRouter.delete("/user/:user_id/skill/:id", skillController.deleteSkill);
 
+//skillRouter.get('/user/:user_id/skills', skillController)
+//skillRouter.get('/user/:user_id/skill/:id', skillController)
 
 module.exports = skillRouter;

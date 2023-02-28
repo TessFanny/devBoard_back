@@ -4,7 +4,9 @@ const userController = require("../controller/userController.js");
 const verifyToken = require('../middleware/auth.js');
 const multer  = require('multer')
 const upload = require('../middleware/uploadImage');
-//const upload = multer({dest: 'app/images/'});
+
+const validationModule = require('../services/joiValidation')
+const schemaUserBody = require('../schema/userBody')
 
 // CUSTUM TYPE/SCHEMA
 /**

@@ -2,10 +2,9 @@
 const express = require('express');
 const authRouter =  express.Router();
 const upload = require('../middleware/uploadImage');
-
-
-const authController = require('../controller/authController.js')
-
+const authController = require('../controller/authController.js');
+const validationModule = require('../services/joiValidation')
+const schemaUserBody = require('../schema/userBody')
 
 // CUSTUM TYPE/SCHEMA
 /**
@@ -53,7 +52,7 @@ authRouter.post("/register", authController.registerUser);
  * @return {object} 200 - user response
  * @return {object} 500 - Unexpected error
  */
-authRouter.post("/login", authController.loginUser);
+authRouter.post("/login",  authController.loginUser);
 
 
 

@@ -26,7 +26,7 @@ const verifyToken = require("../middleware/auth.js");
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get("/posts", verifyToken, postController.getPosts);
+postRouter.get("/posts",  postController.getPosts);
 
 
 /**
@@ -75,7 +75,7 @@ postRouter.get("/post/:id", postController.getOnePost);
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.patch("/user/user_id/post/:id", postController.modifyPost);
+postRouter.patch("/user/:user_id/post/:id", postController.modifyPost);
 
 
 /**
@@ -87,5 +87,8 @@ postRouter.patch("/user/user_id/post/:id", postController.modifyPost);
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.delete("/user/user_id/post/:id", postController.deletePost);
+postRouter.delete("/user/:user_id/post/:id", postController.deletePost);
+
+
+postRouter.get('/user/:user_id/posts/like')
 module.exports = postRouter;
