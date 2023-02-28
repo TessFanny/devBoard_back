@@ -59,16 +59,6 @@ userRouter.get('/user/:id', userController.getOneUser);
 
 
 
-/**
- * PATCH /api/user/{id}
- * @summary  modifie les données  d'un utilisateur en fonction de son id
- * @type {user}
- * @tags User
- * @return {object} 200 - post response
- * @param {number} id.path.required - id en entrée
- * @return {object} 500 - Unexpected error
- */
-userRouter.patch('/user/:id', userController.modifyUser);
 
 
 /**

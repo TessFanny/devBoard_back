@@ -23,8 +23,11 @@ const feedController = {
       },
       getOneFeed: async (req,res) => {
          try {
+            // get an instance of a feed
          const feed = new Feed();
+         //initialize the feed parser
          let parser = new Parser();
+         // get a feed by it's id  
          const newFeed = await feed.findByPk(req.params.id);
          const feedData = await parser.parseURL(`${newFeed.url}`);
          res.status(200).json(feedData)   
@@ -34,10 +37,15 @@ const feedController = {
          }
       },
 
+      /**
+       * create a feed 
+       * @param {*} req 
+       * @param {*} res 
+       */
      addFeed: async (req,res)=>{
       try {
-      
-          const feed = await new Feed();
+         // get an instance of a feed
+         const feed = await new Feed();
          const  feedName = await feed.findByField("name",req.body.name )
          console.log(feedName);
          if(feedName){
@@ -55,9 +63,13 @@ const feedController = {
       }
       },
       
+      /**
+       * update a feed 
+       * @param {*} req 
+       * @param {*} res 
+       */
      modifyFeed: async (req, res)=> {
-        try {
-  
+        try { 
            const feed = new Feed();
            const updatedFeed = await feed.update(req.params.id, req.body);
            res.status(200).json(updatedFeed)
@@ -68,7 +80,11 @@ const feedController = {
         }
      },
 
-     // 
+     /**
+      * delete a feed 
+      * @param {*} req 
+      * @param {*} res 
+      */
      deleteFeed: async (req,res) => {
         try {        
            const feed = new Feed();
@@ -78,44 +94,9 @@ const feedController = {
         } catch(err) {
            res.status(400).json({message: err.message})
         }
-     },
+     }
+    
     
      
-      addFeed: async (req,res)=>{
-         try {
-         
-            const feed = await new Feed()
-            const newFeed = await feed.insertFeedByUser(req.params.id,{
-               name: req.body.name,
-               url: req.body.url,             
-            })
-            res.status(201).json(newFeed);
-            console.log(newFeed);
-         } catch (error) {
-            res.status(400).json({message: error.message})
-         }
-         },
-      modifyFeed: async (req, res)=> {
-         try {
-   
-            const feed = new Feed();
-            const newFeed = await feed.update(req.params.id, req.body);
-            res.status(200).json(newFeed)
-   
-         } catch(err) {
-            console.log(err)
-            res.status(400).json({message: err.message})
-         }
-      },
-      deleteFeed: async (req,res) => {
-         try {        
-            const feed = new Feed();
-            const newFeed = await feed.deleteFeed(req.params.id);
-            res.status(200).json(newFeed)
-   
-         } catch(err) {
-            res.status(400).json({message: err.message})
-         }
-      }
 }
 module.exports = feedController; 
