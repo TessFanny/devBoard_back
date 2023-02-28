@@ -41,23 +41,23 @@ const userController = {
    },
 
    modifyUser: async (req, res)=> {
-     
+   
       try {
-   const user = new User()
+         const user = new User()
          email = req.body.email
          const userEmail = user.findByField("email", email);
          const userUsername = user.findByField("username", req.body.username);
          if(userEmail) {
             return res.status(400).json( {msg: " un utilisateur avec cet email existe déja"})
-      } else if(userUsername){
-         return res.status(400).json( {msg: " un utilisateur avec ce username existe déja"})
-      }
-      else {
-         const newUser = await user.update( req.params.id,req.body);
-         console.log(newUser.email);
-         console.log(newUser);
-         res.status(200).json(newUser)
-      }
+         } else if(userUsername){
+            return res.status(400).json( {msg: " un utilisateur avec ce username existe déja"})
+         }
+         else {
+            const newUser = await user.update( req.params.id,req.body);
+            console.log(newUser.email);
+            console.log(newUser);
+            res.status(200).json(newUser)
+         }
          
 
       } catch(err) {

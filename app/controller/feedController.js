@@ -12,6 +12,7 @@ const feedController = {
                await Promise.all(feeds.map(async (feed) => {
                const feedData = await parser.parseURL(`${feed.url}`);
                news.push(feedData);
+               console.log("feedenvoyé")
             }))
             res.status(200).json(news)   
             
@@ -25,7 +26,6 @@ const feedController = {
          let parser = new Parser();
          const newFeed = await feed.findByPk(req.params.id);
          const feedData = await parser.parseURL(`${newFeed.url}`);
-         console.log(feedData)
          res.status(200).json(feedData)   
          } catch(err) {
    

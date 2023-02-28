@@ -4,7 +4,7 @@ const {
   userRouter,
   authRouter,
   postRouter,
-  rssRouter,
+  feedRouter,
   skillRouter,
   githubRouter,
 } = require("./app/router");
@@ -65,7 +65,7 @@ expressJSDocSwagger(app)(options);
 app.use("/api", userRouter);
 app.use("/api", authRouter);
 app.use("/api", postRouter);
-app.use("/api", rssRouter);
+app.use("/api", feedRouter);
 app.use("/api", skillRouter);
 app.use("/api", githubRouter);
 

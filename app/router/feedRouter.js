@@ -12,4 +12,5 @@ feedRouter.get("/feed/:id", feedController.getOneFeed);
 feedRouter.patch("/user/:user_id/feed/:id", feedController.modifyFeed);
 
 feedRouter.delete("/user/:user_id/feed/:id", feedController.deleteFeed);
+
 module.exports = feedRouter;
