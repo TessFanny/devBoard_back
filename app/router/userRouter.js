@@ -53,7 +53,7 @@ userRouter.get('/users', userController.getUsers);
  * @return {object} 500 - Unexpected error
  */
 
-userRouter.get('/user/:id', verifyToken, userController.getOneUser);
+userRouter.get('/user/:id', userController.getOneUser);
 
 
 
