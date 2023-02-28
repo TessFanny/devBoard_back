@@ -43,12 +43,13 @@ class Skill extends Core {
                 INSERT INTO "${this.tableName}"
                 (${fields})
                 VALUES (${placeholders})
-                RETURNING id
+                RETURNING *
           `,
       values,
     };
     const result = await pool.query(preparedQuery);
-    const skillID = result.rows[0].id;
+    const row = result.rows[0]
+    const skillID = row.id;
     await pool.query(
       "INSERT INTO user_has_skill (skill_id, user_id) VALUES ($1, $2)",
       [skillID, id]

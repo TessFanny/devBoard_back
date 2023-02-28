@@ -30,7 +30,7 @@ const upload = require('../middleware/uploadImage');
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-userRouter.get('/users',verifyToken, userController.getUsers);
+userRouter.get('/users', userController.getUsers);
 
 /**
  * GET /api/user/{id}

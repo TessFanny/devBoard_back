@@ -97,6 +97,20 @@ tableName;
 
       return row;
    }
+   async findByField(field, params) {
+      const preparedQuery = {
+          text: `SELECT  * FROM "${this.tableName}" WHERE ${field} = $1`,
+          values: [params],
+      };
+      
+      const result = await pool.query(preparedQuery);
+      
+      if (!result.rows[0]) {
+          return null;
+      }
+      
+      return result.rows[0];
+  }
 
    async update(id , inputData) {
       const fieldsAndPlaceholders = [];

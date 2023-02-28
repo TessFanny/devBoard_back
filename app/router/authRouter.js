@@ -11,9 +11,9 @@ const authController = require('../controller/authController.js')
 /**
  * A user
  * @typedef {object} UserRegistered
- * @property {string} username - pseudo
- * @property {string} email - email
- * @property {string} password - mot de passe
+ * @property {string} username.required - pseudo
+ * @property {string} email.required - email
+ * @property {string} password.required - mot de passe
  * @property {string} passwordConfirm - confirmation de mot de passe 
  * 
  */
