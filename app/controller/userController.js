@@ -44,22 +44,22 @@ const userController = {
      
       try {
    const user = new User()
-         email = req.body.email
-         const userEmail = user.findByField("email", email);
-         const userUsername = user.findByField("username", req.body.username);
-         if(userEmail.email == req.body.email) {
-            return res.status(400).json( {msg: "cet email exist déjà"})
-      } else if(userUsername.username == req.body.username){
-         return res.status(400).json( {msg: " ce nom d'utilisateur existe déjà"})
-      }
-      else {
-         const newUser = await user.update( req.params.id,req.body);
-         console.log(newUser.email);
-         console.log(newUser);
-         res.status(200).json(newUser)
-      }
+      //    email = req.body.email
+      //    const userEmail = user.findByField("email", email);
+      //    const userUsername = user.findByField("username", req.body.username);
+      //    if(userEmail.email == req.body.email) {
+      //       return res.status(400).json( {msg: "cet email exist déjà"})
+      // } else if(userUsername.username == req.body.username){
+      //    return res.status(400).json( {msg: " ce nom d'utilisateur existe déjà"})
+      // }
+      // else {
+        
+      // }
          
-
+      const newUser = await user.update( req.params.id,req.body);
+      console.log(newUser.email);
+      console.log(newUser);
+      res.status(200).json(newUser)
       } catch(err) {
          console.log(err)
          res.status(400).json({message: err.message})
