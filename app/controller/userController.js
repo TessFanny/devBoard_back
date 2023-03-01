@@ -71,20 +71,18 @@ const userController = {
          // get an instance of user
    const user = new User()
    // get user by id        
-         const userById = await user.findByPk(req.params.id);console.log(userById)
-         // verify if the email provided already exists
-         if(userById.email == req.body.email){
-            return res.status(400).json( {msg: "cet email exist déjà"})
-            // verify if the username provided already exists
-      } else if(userById.username == req.body.username){
-         return res.status(400).json( {msg: " ce nom d'utilisateur existe déjà"})
-      }
-      else {
-         //else send user response
-         const newUser = await user.update( req.params.id,req.body);
-         res.status(200).json(newUser)
-      }
+         const userByEmail = await user.findByField("email", req.params.email);
+         const userByUsername = await user.findByField("username", req.params.username)
+         console.log(userById)
+         if(userByEmail.length > 0){
+            return res.status(409).json({ error: 'Email address already in use' });
+         }
+         if(userByUsername.length > 0){
+            return res.status(409).json({ error: 'username address already in use' });
+         }
          
+         const newUser = await user.update( req.params.id,req.body);
+         res.status(200).json(newUser)        
 
       } catch(err) {
          console.log(err)
