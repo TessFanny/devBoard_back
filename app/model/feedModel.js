@@ -13,7 +13,7 @@ class Feed extends Core {
       text: `SELECT "feed".* FROM "feed" JOIN "feed_has_user" 
            ON feed.id = feed_has_user.feed_id  
            WHERE feed_has_user.user_id = $1
-           RETURNING *`,
+        `,
       values: [id],
     };
 
@@ -23,7 +23,7 @@ class Feed extends Core {
       return null;
     }
 
-    return result.rows[0];
+    return result.rows;
   }
   async insertFeedByUser(id, inputData) {
     const fields = [];

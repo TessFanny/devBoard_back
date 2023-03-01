@@ -51,6 +51,20 @@ feedRouter.post("/user/:user_id/feed", feedController.addFeed);
 feedRouter.get("/feed/:id", feedController.getOneFeed);
 
 
+
+/**
+ * get /api/user/{user_id}/feeds
+ * @summary  permet de récupérer tous les flux rss d'un utilisateur 
+ * @type {Feed}
+ * @security TokenAuth
+ * @tags Feed
+ * @param {number} user_id.path.required -  id d'un utilisateur en entrée
+ * @return {object} 200 - feed response
+ * @return {object} 500 - Unexpected error
+ */
+feedRouter.get("/user/:user_id/feeds", feedController.getAllFeedByUser);
+
+
 /**
  * PATCH /api/user/{user_id}/feed/{id}
  * @summary  permet à l'utilisateur de modifier son propre flux rss  

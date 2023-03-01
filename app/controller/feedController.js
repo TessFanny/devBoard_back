@@ -13,7 +13,7 @@ const feedController = {
                await Promise.all(feeds.map(async (feed) => {
                const feedData = await parser.parseURL(`${feed.url}`);
                news.push(feedData);
-               console.log("feedenvoyé")
+               console.log("feed envoyé")
             }))
             res.status(200).json(news)   
             
@@ -31,9 +31,30 @@ const feedController = {
          const newFeed = await feed.findByPk(req.params.id);
          const feedData = await parser.parseURL(`${newFeed.url}`);
          res.status(200).json(feedData)   
-         } catch(err) {
-   
-            res.status(400).json({message: err.message})
+         } catch(err) {   
+         res.status(400).json({message: err.message})
+         }
+      },
+      /**
+       * get all feeds for a particular user
+       * @param {*} req 
+       * @param {*} res 
+       */
+      getAllFeedByUser: async(req,res)=>{
+         try {
+            let parser = new Parser();
+            const feed =  new Feed();
+            const userFeeds = await feed.findFeedByUser(req.params.user_id)
+            console.log(userFeeds);
+            let news = []
+               await Promise.all(userFeeds.map(async (feed) => {
+               const feedData = await parser.parseURL(`${feed.url}`);
+               news.push(feedData);
+               console.log("feed envoyé")
+            }))
+            res.status(200).json(news)   
+         } catch (error) {
+            res.status(404).json({message: error.message})
          }
       },
 
