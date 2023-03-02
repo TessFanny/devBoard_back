@@ -1,5 +1,5 @@
 const User = require("../model/userModel.js");
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
@@ -68,20 +68,26 @@ const authController = {
           // generate an instance of User class   
             const user = new User();
              // get a user by its email 
-            const newUser = await user.findByField("email",req.body.email);
-            console.log(newUser);
+            const userAuth = await user.findByField("email",req.body.email);
+            //const userAuth = await User.findAll({ $where: {email:req.body.email} });
+            
             // if no user is found with that email an error message is send 
-            if (!newUser) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
+            if (!userAuth) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
             // password comparison between password  user provided and the password of an user registered
-            const passwordCompare = await bcrypt.compare(req.body.password, newUser.password);
+
             // if passwords dont match an error is send 
-            if(!passwordCompare) return res.status(400).json( {msg: " Le mot de passe est incorrect !"})
-            //get token 
+                if(await bcrypt.compare(req.body.password, userAuth[0].password)){
+                    //get token 
             const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
             // password is deleted before it is send 
-            delete newUser.password;
+            console.log(token);
+            delete userAuth.password;
             // token and user send 
-            res.status(200).json({token, newUser}); 
+            res.status(200).json({token, userAuth}); 
+                }else {
+                    return res.status(400).json( {msg: " Le mot de passe est incorrect !"})
+                }
+            
         } catch(err) {
             console.error(err);
             res.status(500).json({error: err.message})

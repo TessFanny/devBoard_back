@@ -19,7 +19,7 @@ const verifyToken = require("../middleware/auth.js");
 
 /**
  * GET /api/posts
- * @summary  génère tous les posts
+ * @summary  génère tous les posts de tous utilisateurs ainsi que leur photo de profil et leur pseudo 
  * @type {Post}
  * @security TokenAuth
  * @tags Post
@@ -31,7 +31,7 @@ postRouter.get("/posts",  postController.getAllUsersPosts);
 
 /**
  * GET /api/user/{user_id}/posts
- * @summary  génère tous les posts d'un utilisateur en fonction de son id
+ * @summary  génère tous les posts d'un utilisateur ainsi que sa photo de profil et son pseudo en fonction de son id
  * @type {Post}
  * @tags Post
  * @param {number} id.path.required - id en entrée
@@ -40,18 +40,6 @@ postRouter.get("/posts",  postController.getAllUsersPosts);
  */
 
 postRouter.get("/user/:user_id/posts", postController.getOneUserPosts);
-
-
-/**
- * post /api/user/{user_id}/post
- * @summary  post crée par un utilisateur
- * @type {Post}
- * @tags Post
- * @param {number} id.path.required - id en entrée
- * @return {object} 200 - post response
- * @return {object} 500 - Unexpected error
- */
-postRouter.post("/user/:user_id/post", postController.addPost);
 
 
 /**
@@ -65,6 +53,20 @@ postRouter.post("/user/:user_id/post", postController.addPost);
  */
 
 postRouter.get("/post/:id", postController.getOnePost);
+
+/**
+ * post /api/user/{user_id}/post
+ * @summary  post crée par un utilisateur
+ * @type {Post}
+ * @tags Post
+ * @param {number} id.path.required - id en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
+postRouter.post("/user/:user_id/post", postController.addPost);
+
+
+
 
 
 /**

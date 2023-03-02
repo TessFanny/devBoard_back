@@ -64,6 +64,8 @@ const postController = {
                res.status(400).json({message: err.message})
             }
      },
+
+     // create a post 
     addPost: async (req,res)=>{
     try {   
         const post = await new Post()
@@ -81,7 +83,7 @@ const postController = {
     }
     },
 
-  
+  // update a post
      modifyPost: async (req, res)=> {
         try {
   
@@ -94,7 +96,19 @@ const postController = {
            res.status(400).json({message: err.message})
         }
      },
+//get posts liked by a user
+     getUserLikedPosts: async (req, res)=>{
+        try {
+            const post = new Post();
+            const posts = await post.findLikedPostsByUser(req.params.user_id)
+            res.status(200).json(posts)
+            console.log(posts);
+        } catch (error) {
+            res.status(400).json({message: err.message})
+        }
+    },
      
+     //delete a post
      deletePost: async (req,res) => {
         try {
            
@@ -106,15 +120,6 @@ const postController = {
            res.status(400).json({message: err.message})
         }
      },
-    getUserLikedPosts: async (req, res)=>{
-        try {
-            const post = new Post();
-            const posts = await post.findLikedPostsByUser(req.params.user_id)
-            res.status(200).json(posts)
-            console.log(posts);
-        } catch (error) {
-            res.status(400).json({message: err.message})
-        }
-    }
+   
 }
 module.exports = postController; 
