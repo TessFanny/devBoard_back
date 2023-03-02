@@ -26,7 +26,7 @@ const verifyToken = require("../middleware/auth.js");
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get("/posts",  postController.getUserPosts);
+postRouter.get("/posts",  postController.getAllUsersPosts);
 
 
 /**
@@ -39,7 +39,7 @@ postRouter.get("/posts",  postController.getUserPosts);
  * @return {object} 500 - Unexpected error
  */
 
-postRouter.get("/user/:user_id/posts", postController.getPostsByUser);
+postRouter.get("/user/:user_id/posts", postController.getOneUserPosts);
 
 
 /**
@@ -63,6 +63,7 @@ postRouter.post("/user/:user_id/post", postController.addPost);
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
+
 postRouter.get("/post/:id", postController.getOnePost);
 
 

@@ -25,6 +25,7 @@ class Feed extends Core {
 
     return result.rows;
   }
+  
   async insertFeedByUser(id, inputData) {
     const fields = [];
     const placeholders = [];

@@ -13,45 +13,53 @@ tableName;
     * @returns un enregistrement ou une liste d'enregistrement
     */
    async findByPk(id) {
-      const preparedQuery = {
-         text: `SELECT * FROM "${this.tableName}" WHERE id = $1`,
-         values: [id],
-      };
-
-      const result = await pool.query(preparedQuery);
-
-      if (!result.rows[0]) {
-         return null;
+      try {
+         const preparedQuery = {
+            text: `SELECT * FROM "${this.tableName}" WHERE id = $1`,
+            values: [id],
+         };
+   
+         const result = await pool.query(preparedQuery);
+   
+         if (!result.rows[0]) {
+            return null;
+         }
+   
+         return result.rows[0];
+      } catch (error) {
+         console.error(`Error in findByPk() : ${error.message}`)
+            throw error;
       }
-
-      return result.rows[0];
+      
    }
 
    static async findAll(params) {
-      let filter = '';
+      try {
+         let filter = '';
       const values = [];
 
-      // params? je vérifie si params existe, puis je vérifie si params.$where existe
+      // params? verify if params exists,then if params.$where exists
       if (params?.$where) {
-         const filters = []; // j'initialise mon tableau qui va contenir mes conditions du WHERE
-         let indexPlaceholder = 1; // j'initialise un compteur pour gérer mes $1,$2...
+         const filters = []; //  initialize the table which will contain every WHERE conditions 
+         let indexPlaceholder = 1; // initialize a counter to handle prepared queries $1,$2...
 
-         // Object.entries vient décomposer mon objet en un tableau qui va contenir des tableaux à deux dimensions [ clef , valeur ]
-         Object.entries(params.$where).forEach(([param, value]) => {
-               // on est le paramètre actuel pour voir s'il correspond à $or (ceci nous permet de gérer des cas où on souhaite avoir un OR dans notre WHERE)
+         // Object.entries decomposes the object into a table which result will be like this : [ key , value ] 
+         Object.entries(params.$where).forEach(([param, value]) => { 
+               // verify if params is equal to $or( to handle the case we want  OR in the WHERE condition)
                if (param === '$or') {
                   const filtersOr = [];
-                  // On vient décomposer notre value dans le cas où ce serait un objet (pour créer une requête encore plus complexe)
-                  Object.entries(value).forEach(([key, val]) => { // par exemple ["city_id",2]
-                     filtersOr.push(`"${key}" = $${indexPlaceholder}`); // on vient ajouter $1 à la première itération, puis ça sera $2 puis $3...
-                     values.push(val); // on ajoute la valeur (dans l'exemple 2)
-                     indexPlaceholder += 1; // on incrémente notre compteur pour correspondre au $1, $2...
+                  // we decompose in case the value is an object(to create a more complex  query)                  
+                  Object.entries(value).forEach(([key, val]) => { // parfor example ["city_id",2]
+                     filtersOr.push(`"${key}" = $${indexPlaceholder}`); // we add  $1 to first iteration, then $2 ,then $3 and so on..
+                     values.push(val); // then we push the value (example 2)
+                     indexPlaceholder += 1; // we increment the counter $1, $2...
                   });
-                  filters.push(`(${filtersOr.join(' OR ')})`); // on vient ajouter d'éventuel OR à notre requête si mon paramètre au départ (dans le if) était $or
+                  filters.push(`(${filtersOr.join(' OR ')})`); // we add OR in the query if there were $or in the condition at the begining
+               
                } else {
-                  filters.push(`"${param}" = $${indexPlaceholder}`); // city_id = $1
-                  values.push(value); // on ajoute la valeur
-                  indexPlaceholder += 1; // on incrémente notre compteur pour gérer les $1, $2...
+                  filters.push(`"${param}" = $${indexPlaceholder}`); 
+                  values.push(value); // we add the value
+                  indexPlaceholder += 1; // we increment the counter to handle $1, $2...
                }
          });
          filter = `WHERE ${filters.join(' AND ')}`;
@@ -68,10 +76,16 @@ tableName;
 
       const result = await pool.query(preparedQuery);
       return result.rows;
+      } catch (error) {
+         console.error(`Error in findAll() : ${error.message}`)
+            throw error;
+      }
+      
    }
 
    async create(inputData) {
-      const fields = [];
+      try {
+         const fields = [];
       const placeholders = [];
       const values = [];
       let indexPlaceholder = 1;
@@ -96,53 +110,77 @@ tableName;
       const row = result.rows[0];
 
       return row;
-   }
-   async findByField(field, params) {
-      const preparedQuery = {
-          text: `SELECT  * FROM "${this.tableName}" WHERE ${field} = $1`,
-          values: [params],
-      };
-      
-      const result = await pool.query(preparedQuery);
-      
-      if (!result.rows[0]) {
-          return null;
+      } catch (error) {
+         console.error(`Error in create() : ${error.message}`)
+            throw error;
       }
       
-      return result.rows[0];
+   }
+   // query that return  rows of a tablename where the condition in WHERE is met
+   async findByField(field, params) {
+      try {
+         const preparedQuery = {
+            text: `SELECT  * FROM "${this.tableName}" WHERE ${field} = $1`,
+            values: [params],
+        };
+        
+        const result = await pool.query(preparedQuery);
+        
+        if (!result.rows[0]) {
+            return null;
+        }
+        
+        return result.rows;
+      } catch (error) {
+         console.error(`Error in findByField() : ${error.message}`)
+         throw error;
+      }
+      
   }
 
    async update(id , inputData) {
-      const fieldsAndPlaceholders = [];
-      let indexPlaceholder = 1;
-      const values = [];
-
-      Object.entries(inputData).forEach(([prop, value]) => {
-         fieldsAndPlaceholders.push(`"${prop}" = $${indexPlaceholder}`);
-         indexPlaceholder += 1;
-         values.push(value);
-      });
-      
-      values.push(id);
-
-      const preparedQuery = {
-         text: `
-               UPDATE "${this.tableName}" SET
-               ${fieldsAndPlaceholders}
-               WHERE id = $${indexPlaceholder}
-               RETURNING *
-         `,
-         values,
-      };
-      const result = await pool.query(preparedQuery);
-      const row = result.rows[0];
-
-      return row;
+      try {
+         const fieldsAndPlaceholders = [];
+         let indexPlaceholder = 1;
+         const values = [];
+   
+         Object.entries(inputData).forEach(([prop, value]) => {
+            fieldsAndPlaceholders.push(`"${prop}" = $${indexPlaceholder}`);
+            indexPlaceholder += 1;
+            values.push(value);
+         });
+         
+         values.push(id);
+   
+         const preparedQuery = {
+            text: `
+                  UPDATE "${this.tableName}" SET
+                  ${fieldsAndPlaceholders}
+                  WHERE id = $${indexPlaceholder}
+                  RETURNING *
+            `,
+            values,
+         };
+         const result = await pool.query(preparedQuery);
+         const row = result.rows[0];
+   
+         return row;
+      } catch (error) {
+         console.error(`Error in update() : ${error.message}`)
+            throw error;
+      }
+     
    }
 
    async delete(id) {
-      const result = await pool.query(`DELETE FROM "${this.tableName}" WHERE id = $1`, [id]);
+      try {
+         const result = await pool.query(`DELETE FROM "${this.tableName}" WHERE id = $1`, [id]);
       return !!result.rowCount;
+      } catch (error) {
+         console.error(`Error in delete() : ${error.message}`)
+            throw error;
+      }
+      
    }
 }
 
