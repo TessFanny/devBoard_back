@@ -75,6 +75,27 @@ const postController = {
         } catch(err) {
            res.status(400).json({message: err.message})
         }
-     }
+     },
+
+     getUserPosts: async (req, res)=>{
+        try {
+            const post = new Post();
+            const posts = await post.findPostsUserProfile()
+            res.status(200).json(posts)
+            console.log(posts);
+        } catch (error) {
+            res.status(400).json({message: err.message})
+        }
+    },
+    getUserLikedPosts: async (req, res)=>{
+        try {
+            const post = new Post();
+            const posts = await post.findLikedPostsByUser(req.params.user_id)
+            res.status(200).json(posts)
+            console.log(posts);
+        } catch (error) {
+            res.status(400).json({message: err.message})
+        }
+    }
 }
 module.exports = postController; 

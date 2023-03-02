@@ -26,7 +26,7 @@ const verifyToken = require("../middleware/auth.js");
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get("/posts",  postController.getPosts);
+postRouter.get("/posts",  postController.getUserPosts);
 
 
 /**
@@ -84,11 +84,14 @@ postRouter.patch("/user/:user_id/post/:id", postController.modifyPost);
  * @type {Post}
  * @tags Post
  * @param {number} id.path.required - id en entrée
+ * @param {number} user_id.path.required - id de l'utilisateur en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
 postRouter.delete("/user/:user_id/post/:id", postController.deletePost);
 
 
-postRouter.get('/user/:user_id/posts/like')
+//postRouter.get('/user/:user_id/like/posts', postController.getUserLikedPosts)
+
+
 module.exports = postRouter;
