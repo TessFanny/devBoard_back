@@ -16,6 +16,7 @@ const authController = {
 
         // verify if the password and the password confirmation are the same
         if (req.body.password !== req.body.passwordConfirm) return res.status(400).json( {msg: 'les mots de passe  ne correspondent pas'})
+
         const salt = await bcrypt.genSalt(10);
 
         // password hashing
@@ -68,24 +69,25 @@ const authController = {
           // generate an instance of User class   
             const user = new User();
              // get a user by its email 
-            const userAuth = await user.findByField("email",req.body.email);
+            const userAuth = await user.findByField("email", req.body.email);
             //const userAuth = await User.findAll({ $where: {email:req.body.email} });
+            console.log(userAuth);
             
             // if no user is found with that email an error message is send 
             if (!userAuth) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
             // password comparison between password  user provided and the password of an user registered
 
             // if passwords dont match an error is send 
-                if(await bcrypt.compare(req.body.password, userAuth[0].password)){
+                if(await bcrypt.compare(req.body.password, userAuth.password)){
                     //get token 
             const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
             // password is deleted before it is send 
-            console.log(token);
+           
             delete userAuth.password;
             // token and user send 
             res.status(200).json({token, userAuth}); 
                 }else {
-                    return res.status(400).json( {msg: " Le mot de passe est incorrect !"})
+                    return res.status(400).json( {msg: "Le mot de passe est incorrect !"})
                 }
             
         } catch(err) {

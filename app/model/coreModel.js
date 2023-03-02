@@ -117,11 +117,11 @@ tableName;
       
    }
    // query that return  rows of a tablename where the condition in WHERE is met
-   async findByField(field, params) {
+   async findByField(field, param) {
       try {
          const preparedQuery = {
             text: `SELECT  * FROM "${this.tableName}" WHERE ${field} = $1`,
-            values: [params],
+            values: [param],
         };
         
         const result = await pool.query(preparedQuery);
@@ -130,7 +130,7 @@ tableName;
             return null;
         }
         
-        return result.rows;
+        return result.rows[0];
       } catch (error) {
          console.error(`Error in findByField() : ${error.message}`)
          throw error;
