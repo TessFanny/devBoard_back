@@ -26,7 +26,7 @@ class Post extends Core {
       }
       async findPostsUserProfile() {
         const preparedQuery = {
-          text: `SELECT "user".image_path , post.* FROM post JOIN "user" 
+          text: `SELECT "user".image_path, "user".username , post.* FROM post JOIN "user" 
           ON post.user_id = "user".id
             `,
         };
