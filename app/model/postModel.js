@@ -53,7 +53,10 @@ class Post extends Core {
      async getPostsLikedByUser(user_id){
       try {
         const preparedQuery = {
-            text: ` SELECT post.* FROM post JOIN user_likes ON post.id = user_likes.post_id WHERE user_likes.user_id = $1;
+            text: `SELECT distinct "user".username, "user".image_path, post.*  FROM post 
+            JOIN "user" ON  post.user_id = "user".id
+            JOIN user_likes ON post.id = user_likes.post_id 
+            WHERE user_likes.user_id = $1;
               `,
             values: [user_id],
           };
