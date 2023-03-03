@@ -94,7 +94,41 @@ postRouter.patch("/user/:user_id/post/:id", postController.modifyPost);
 postRouter.delete("/user/:user_id/post/:id", postController.deletePost);
 
 
-//postRouter.get('/user/:user_id/like/posts', postController.getUserLikedPosts)
 
+/** 
+ * get /api/user/{user_id}/like/post/{post_id}
+ * @summary  permet de rajouter des likes sur des posts 
+ * @type {Post}
+ * @tags Post
+ * @param {number} user_id.path.required - id de l'utilisateur en entrée
+ * @param {number} post_id.path.required - id  d'un post en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
+postRouter.get('/user/:user_id/like/post/:post_id', postController.addLikesToPost)
+
+
+/**
+ * get /api/likes/post/{post_id}
+ * @summary  génère le nombre de likes lié à un post 
+ * @type {Post}
+ * @tags Post
+ * @param {number} post_id.path.required - id  d'un post en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
+postRouter.get('/likes/post/:post_id', postController.likesCount)
+
+
+/** 
+ * get /api/user/{user_id}/like/posts
+ * @summary  génère tous les posts liké par un utilisateur
+ * @type {Post}
+ * @tags Post
+ * @param {number} user_id.path.required - id  d'un post en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
+postRouter.get('/user/:user_id/like/posts', postController.postsLikedByUser)
 
 module.exports = postRouter;

@@ -86,6 +86,8 @@ const authController = {
             delete userAuth.password;
             // token and user send 
             res.status(200).json({token, userAuth}); 
+
+            //else a 404 status is send 
                 }else {
                     return res.status(400).json( {msg: "Le mot de passe est incorrect !"})
                 }

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 //const datamapper = require('../model/updatePicture')
 const userController = {
    /**
-    * get all users
+    *   generate all users
     * @param {*} req 
     * @param {*} res 
     */
@@ -22,7 +22,7 @@ const userController = {
    },  
    
    /**
-    * get one user by its email
+    *  generate one user by its email
     * @param {*} req 
     * @param {*} res 
     */
@@ -41,7 +41,7 @@ const userController = {
       }
    },
    /**
-    * get one user
+    * generate one user
     * @param {*} req 
     * @param {*} res 
     */
@@ -92,7 +92,7 @@ const userController = {
    },
 
    /**
-    * delete user 
+    * to delete user 
     * @param {*} req 
     * @param {*} res 
     */

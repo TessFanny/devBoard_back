@@ -36,23 +36,30 @@ const feedController = {
          }
       },
       /**
-       * get all feeds for a particular user
+       * generates all feeds for a particular user
        * @param {*} req 
        * @param {*} res 
        */
       getAllFeedByUser: async(req,res)=>{
          try {
+            // creates an instance of a parser
             let parser = new Parser();
+            // creates an instance of a feed 
             const feed =  new Feed();
+            // generates every feed created by one user
             const userFeeds = await feed.findFeedByUser(req.params.user_id)
             console.log(userFeeds);
+            // initialize the table that will hold parsed feeds urls
             let news = []
+            // the feeds url are then parsed before there are send to the client
                await Promise.all(userFeeds.map(async (feed) => {
                const feedData = await parser.parseURL(`${feed.url}`);
                news.push(feedData);
                console.log("feed envoyé")
             }))
+            // if everything is ok thefeeds url are send to the client 
             res.status(200).json(news)   
+            //else the 404 status is send
          } catch (error) {
             res.status(404).json({message: error.message})
          }
@@ -65,8 +72,9 @@ const feedController = {
        */
      addFeed: async (req,res)=>{
       try {
-         // get an instance of a feed
+         // creates an instance of a feed
          const feed = await new Feed();
+         // generates every feed created by one user
          const  feedName = await feed.findByField("name",req.body.name )
          console.log(feedName);
          if(feedName){
@@ -102,7 +110,7 @@ const feedController = {
      },
 
      /**
-      * delete a feed 
+      * to delete a feed 
       * @param {*} req 
       * @param {*} res 
       */

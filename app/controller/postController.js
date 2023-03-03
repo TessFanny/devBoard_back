@@ -25,7 +25,12 @@ const postController = {
         
     // }, 
     
-// get all posts created by all users
+
+/**
+ * generates every posts created by all users
+ * @param {*} req 
+ * @param {*} res 
+ */
     getAllUsersPosts: async (req, res)=>{
         try {
             const post = new Post();
@@ -57,7 +62,7 @@ const postController = {
                 res.status(200).json(newPost)
 
             }else{
-                throw new Error
+                throw Error()
             }
       
             } catch(err) {      
@@ -97,17 +102,47 @@ const postController = {
         }
      },
 //get posts liked by a user
-     getUserLikedPosts: async (req, res)=>{
+    addLikesToPost: async (req, res)=>{
         try {
             const post = new Post();
-            const posts = await post.findLikedPostsByUser(req.params.user_id)
-            res.status(200).json(posts)
-            console.log(posts);
-        } catch (error) {
+            const postLiked = await post.addLikesPost(req.params.post_id,req.params.user_id)
+            res.status(200).json(postLiked)
+            console.log(postLiked);
+        } catch (err) {
             res.status(400).json({message: err.message})
         }
     },
-     
+    likesCount: async(req,res)=>{
+        try {
+            const post = new Post();
+            const likeCount = await post.likesCount(req.params.post_id)
+            
+            if(likeCount){
+                res.status(200).json(likeCount)
+            }
+            else{
+                throw new Error()
+            }
+        } catch (err) {
+            res.status(400).json({message: err.message})
+        }
+    },
+
+    postsLikedByUser: async (req,res)=>{
+        try {
+            const post = new Post();
+        const postsLiked = await post.getPostsLikedByUser(req.params.user_id);
+        if(postsLiked){
+            res.status(200).json(postsLiked)
+        }
+        else{
+            throw Error('this user has no post liked')
+        }
+        } catch (err) {
+            res.status(400).json({message: err.message})
+        }
+        
+    },
      //delete a post
      deletePost: async (req,res) => {
         try {
