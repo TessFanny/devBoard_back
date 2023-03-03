@@ -13,7 +13,7 @@ class Post extends Core {
     async addLikesPost(post_id, user_id) {
         try {
             const preparedQuery = {
-                text: ` INSERT INTO user_likes (user_id, post_id) VALUES ($1, $2)
+                text: ` INSERT INTO user_likes (post_id, user_id) VALUES ($1, $2)
                 returning *
                   `,
                 values: [post_id, user_id],
