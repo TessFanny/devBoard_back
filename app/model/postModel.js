@@ -20,9 +20,10 @@ class Post extends Core {
               };
           
               const result = await pool.query(preparedQuery);       
-          
+              await pool.query(`UPDATE post SET "like" = COALESCE("like", 0) + 1 WHERE post.id= $1`,[post_id]) 
+
               return result.rows[0];
-        } catch (error) {
+            } catch (error) {
             console.error(`Error in addLikesPost() : ${error.message}`)
          throw error;
         }

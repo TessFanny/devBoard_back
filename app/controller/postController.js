@@ -36,7 +36,6 @@ const postController = {
             const post = new Post();
             const posts = await post.findPostsByUsers()
             res.status(200).json(posts)
-            console.log(posts);
         } catch (error) {
             res.status(400).json({message: err.message})
         }
