@@ -32,13 +32,14 @@ const schemaUserBody = require('../schema/userBody')
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-userRouter.get('/users', userController.getUsers);
+userRouter.get('/users', verifyToken, userController.getUsers);
 
 /**
  * GET /api/user/{id}
  * @summary  génère un utilisateur en fonction de son id
  * @type {user}
  * @tags User
+ * @security TokenAuth
  * @return {object} 200 - post response
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
@@ -50,12 +51,13 @@ userRouter.get('/users', userController.getUsers);
  * @summary  génère un utilisateur en fonction de son id
  * @type {user}
  * @tags User
+ * @security TokenAuth
  * @return {object} 200 - post response
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
 
-userRouter.get('/user/:id', userController.getOneUser);
+userRouter.get('/user/:id', verifyToken, userController.getOneUser);
 
 
 
@@ -66,11 +68,12 @@ userRouter.get('/user/:id', userController.getOneUser);
  * @summary  modifie les données  d'un utilisateur en fonction de son id
  * @type {user}
  * @tags User
+ * @security TokenAuth
  * @return {object} 200 - post response
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
-userRouter.patch('/user/:id', userController.modifyUser); /** here */
+userRouter.patch('/user/:id', verifyToken, userController.modifyUser); /** here */
 
 
 
@@ -89,12 +92,13 @@ userRouter.patch('/user/:id', userController.modifyUser); /** here */
  * @summary  modifie les données  d'un utilisateur en fonction de son id
  * @type {user}
  * @tags User
+ * @security TokenAuth
  * @return {object} 200 - formData response
  * @param {userProfile} request.body.required - - multipart/form-data
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
-userRouter.patch('/user/:id/profile', upload.single('file'), userController.updatePicture)
+userRouter.patch('/user/:id/profile', verifyToken, upload.single('file'), userController.updatePicture)
 
 
 /**
@@ -102,11 +106,12 @@ userRouter.patch('/user/:id/profile', upload.single('file'), userController.upda
  * @summary  supprime un utilisateur en fonction de son id
  * @type {user}
  * @tags User
+ * @security TokenAuth
  * @return {object} 200 - post response
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
-userRouter.delete('/user/:id', userController.deleteUser);
+userRouter.delete('/user/:id', verifyToken, userController.deleteUser);
 
 
 module.exports = userRouter

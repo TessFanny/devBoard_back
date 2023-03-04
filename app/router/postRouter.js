@@ -26,7 +26,7 @@ const verifyToken = require("../middleware/auth.js");
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get("/posts",  postController.getAllUsersPosts);
+postRouter.get("/posts", verifyToken, postController.getAllUsersPosts);
 
 
 /**
@@ -34,12 +34,13 @@ postRouter.get("/posts",  postController.getAllUsersPosts);
  * @summary  génère tous les posts d'un utilisateur ainsi que sa photo de profil et son pseudo en fonction de son id
  * @type {Post}
  * @tags Post
- * @param {number} id.path.required - id en entrée
+ * @security TokenAuth
+ * @param {number} user_id.path.required - id en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
 
-postRouter.get("/user/:user_id/posts",  verifyToken, postController.getOneUserPosts);
+postRouter.get("/user/:user_id/posts", verifyToken, postController.getOneUserPosts);
 
 
 /**
@@ -47,51 +48,56 @@ postRouter.get("/user/:user_id/posts",  verifyToken, postController.getOneUserPo
  * @summary  génère un post à partir de l'id du post
  * @type {Post}
  * @tags Post
+ * @security TokenAuth
  * @param {number} id.path.required - id en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
 
-postRouter.get("/post/:id", postController.getOnePost);
+postRouter.get("/post/:id", verifyToken, postController.getOnePost);
 
 /**
  * post /api/user/{user_id}/post
  * @summary  post crée par un utilisateur
  * @type {Post}
  * @tags Post
- * @param {number} id.path.required - id en entrée
+ * @security TokenAuth
+ * @param {number} user_id.path.required - id en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.post("/user/:user_id/post", postController.addPost);
+postRouter.post("/user/:user_id/post",verifyToken, postController.addPost);
 
 
 
 
 
 /**
- * patch /api/user/{user_id}/post/{id}
+ * patch /api/user/{user_id}/post/{post_id}
  * @summary  modification de son  post (utilisateur)
  * @type {Post}
  * @tags Post
- * @param {number} id.path.required - id en entrée
+ * @security TokenAuth
+ * @param {number} post_id.path.required - id d'un post en entrée
+ * @param {number} user_id.path.required - id d'un utilisateur en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.patch("/user/:user_id/post/:id", postController.modifyPost);
+postRouter.patch("/user/:user_id/post/:id", verifyToken, postController.modifyPost);
 
 
 /**
- * delete /api/user/{user_id}/post/{id}
+ * delete /api/user/{user_id}/post/{post_id}
  * @summary  suppression de son post (utilisateur)
  * @type {Post}
  * @tags Post
- * @param {number} id.path.required - id en entrée
+ * @security TokenAuth
+ * @param {number} post_id.path.required - id d'un post en entrée
  * @param {number} user_id.path.required - id de l'utilisateur en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.delete("/user/:user_id/post/:id", postController.deletePost);
+postRouter.delete("/user/:user_id/post/:id", verifyToken, postController.deletePost);
 
 
 
@@ -100,12 +106,13 @@ postRouter.delete("/user/:user_id/post/:id", postController.deletePost);
  * @summary  permet de rajouter des likes sur des posts 
  * @type {Post}
  * @tags Post
+ * @security TokenAuth
  * @param {number} user_id.path.required - id de l'utilisateur en entrée
  * @param {number} post_id.path.required - id  d'un post en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get('/user/:user_id/like/post/:post_id', postController.addLikesToPost)
+postRouter.get('/user/:user_id/like/post/:post_id', verifyToken, postController.addLikesToPost)
 
 
 /**
@@ -113,11 +120,12 @@ postRouter.get('/user/:user_id/like/post/:post_id', postController.addLikesToPos
  * @summary  génère le nombre de likes lié à un post 
  * @type {Post}
  * @tags Post
+ * @security TokenAuth
  * @param {number} post_id.path.required - id  d'un post en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get('/likes/post/:post_id', postController.likesCount)
+postRouter.get('/likes/post/:post_id', verifyToken, postController.likesCount)
 
 
 /** 
@@ -125,25 +133,28 @@ postRouter.get('/likes/post/:post_id', postController.likesCount)
  * @summary  génère tous les posts liké par un utilisateur
  * @type {Post}
  * @tags Post
+ * @security TokenAuth
  * @param {number} user_id.path.required - id  d'un post en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.get('/user/:user_id/like/posts', postController.postsLikedByUser)
+postRouter.get('/user/:user_id/like/posts', verifyToken, postController.postsLikedByUser)
 
 
 /**
- * delete /api/user/{user_id}/post/{id}
- * @summary  suppression d'un like par un utilisateur '
+ * delete /api/user/{user_id}/like/post/{post_id}
+ * @summary  suppression d'un like par un utilisateur
  * @type {Post}
  * @tags Post
- * @param {number} id.path.required - id en entrée
+ * @security TokenAuth
+ * @param {number} post_id.path.required - id en entrée
  * @param {number} user_id.path.required - id de l'utilisateur en entrée
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.delete('/user/:user_id/like/post/:post_id', postController.deleteLikesOnPost);
+postRouter.delete('/user/:user_id/like/post/:post_id', verifyToken,postController.deleteLikesOnPost);
 
 
 
 module.exports = postRouter;
+ 

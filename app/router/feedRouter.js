@@ -1,6 +1,7 @@
 const express = require('express');
 const feedRouter =  express.Router();
 const feedController = require("../controller/feedController.js")
+const verifyToken = require("../middleware/auth.js");
 
 
 // CUSTUM TYPE/SCHEMA
@@ -21,7 +22,7 @@ const feedController = require("../controller/feedController.js")
  * @return {object} 200 - feed response
  * @return {object} 500 - Unexpected error
  */
-feedRouter.get('/feeds', feedController.getFeed);
+feedRouter.get('/feeds', verifyToken, feedController.getFeed);
 
 
 /**
@@ -35,7 +36,7 @@ feedRouter.get('/feeds', feedController.getFeed);
  * @return {object} 500 - Unexpected error
  */
 
-feedRouter.post("/user/:user_id/feed", feedController.addFeed);
+feedRouter.post("/user/:user_id/feed", verifyToken, feedController.addFeed);
 
 
 /**
@@ -48,7 +49,7 @@ feedRouter.post("/user/:user_id/feed", feedController.addFeed);
  * @return {object} 200 - feed response
  * @return {object} 500 - Unexpected error
  */
-feedRouter.get("/feed/:id", feedController.getOneFeed);
+feedRouter.get("/feed/:id", verifyToken, feedController.getOneFeed);
 
 
 
@@ -62,7 +63,7 @@ feedRouter.get("/feed/:id", feedController.getOneFeed);
  * @return {object} 200 - feed response
  * @return {object} 500 - Unexpected error
  */
-feedRouter.get("/user/:user_id/feeds", feedController.getAllFeedByUser);
+feedRouter.get("/user/:user_id/feeds", verifyToken, feedController.getAllFeedByUser);
 
 
 /**
@@ -76,7 +77,7 @@ feedRouter.get("/user/:user_id/feeds", feedController.getAllFeedByUser);
  * @return {object} 200 - feed response
  * @return {object} 500 - Unexpected error
  */
-feedRouter.patch("/user/:user_id/feed/:id", feedController.modifyFeed);
+feedRouter.patch("/user/:user_id/feed/:id", verifyToken, feedController.modifyFeed);
 
 
 /**
@@ -90,6 +91,6 @@ feedRouter.patch("/user/:user_id/feed/:id", feedController.modifyFeed);
  * @return {object} 200 - feed response
  * @return {object} 500 - Unexpected error
  */
-feedRouter.delete("/user/:user_id/feed/:id", feedController.deleteFeed);
+feedRouter.delete("/user/:user_id/feed/:id", verifyToken, feedController.deleteFeed);
 
 module.exports = feedRouter;
