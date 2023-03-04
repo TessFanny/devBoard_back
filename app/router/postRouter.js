@@ -39,7 +39,7 @@ postRouter.get("/posts",  postController.getAllUsersPosts);
  * @return {object} 500 - Unexpected error
  */
 
-postRouter.get("/user/:user_id/posts", postController.getOneUserPosts);
+postRouter.get("/user/:user_id/posts",  verifyToken, postController.getOneUserPosts);
 
 
 /**
@@ -134,7 +134,7 @@ postRouter.get('/user/:user_id/like/posts', postController.postsLikedByUser)
 
 /**
  * delete /api/user/{user_id}/post/{id}
- * @summary  suppression de son post (utilisateur)
+ * @summary  suppression d'un like par un utilisateur '
  * @type {Post}
  * @tags Post
  * @param {number} id.path.required - id en entrée
