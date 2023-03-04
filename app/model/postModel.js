@@ -29,6 +29,24 @@ class Post extends Core {
         }
         
       }
+      async deleteLikesPost(post_id, user_id){
+        try {
+          const preparedQuery = {
+            text: ` DELETE FROM user_likes WHERE post_id = $1 AND user_id = $2  
+            returning *
+              `,
+            values: [post_id, user_id],
+          };
+      
+          const result = await pool.query(preparedQuery);       
+          await pool.query(`UPDATE post SET "like" = COALESCE("like", 0) - 1 WHERE post.id= $1`,[post_id]) 
+
+          return result.rows[0];
+        } catch (error) {
+          console.error(`Error in deleteLikesPost() : ${error.message}`)
+          throw error;
+        }
+      }
       async likesCount(post_id){
         try {
           const preparedQuery = {

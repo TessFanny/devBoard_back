@@ -154,6 +154,18 @@ const postController = {
            res.status(400).json({message: err.message})
         }
      },
+      deleteLikesOnPost: async (req, res)=>{
+        try {
+           
+            const post = new Post();
+            const newPost = await post.deleteLikesPost(req.params.post_id, req.params.user_id);
+            
+            res.status(200).json(newPost)
+   
+         } catch(err) {
+            res.status(400).json({message: err.message})
+         }
+      }
    
 }
 module.exports = postController; 

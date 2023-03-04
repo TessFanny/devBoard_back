@@ -131,4 +131,19 @@ postRouter.get('/likes/post/:post_id', postController.likesCount)
  */
 postRouter.get('/user/:user_id/like/posts', postController.postsLikedByUser)
 
+
+/**
+ * delete /api/user/{user_id}/post/{id}
+ * @summary  suppression de son post (utilisateur)
+ * @type {Post}
+ * @tags Post
+ * @param {number} id.path.required - id en entrée
+ * @param {number} user_id.path.required - id de l'utilisateur en entrée
+ * @return {object} 200 - post response
+ * @return {object} 500 - Unexpected error
+ */
+postRouter.delete('/user/:user_id/like/post/:post_id', postController.deleteLikesOnPost);
+
+
+
 module.exports = postRouter;
