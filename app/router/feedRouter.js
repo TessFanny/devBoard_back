@@ -2,7 +2,8 @@ const express = require('express');
 const feedRouter =  express.Router();
 const feedController = require("../controller/feedController.js")
 const verifyToken = require("../middleware/auth.js");
-
+const feedSchema = require('../schema/feedBody.js');
+const validation = require("../services/joiValidation.js");
 
 // CUSTUM TYPE/SCHEMA
 /**
@@ -36,7 +37,7 @@ feedRouter.get('/feeds', verifyToken, feedController.getFeed);
  * @return {object} 500 - Unexpected error
  */
 
-feedRouter.post("/user/:user_id/feed", verifyToken, feedController.addFeed);
+feedRouter.post("/user/:user_id/feed", validation.check(feedSchema.addFeed(), "body"), verifyToken, feedController.addFeed);
 
 
 /**
@@ -77,7 +78,7 @@ feedRouter.get("/user/:user_id/feeds", verifyToken, feedController.getAllFeedByU
  * @return {object} 200 - feed response
  * @return {object} 500 - Unexpected error
  */
-feedRouter.patch("/user/:user_id/feed/:id", verifyToken, feedController.modifyFeed);
+feedRouter.patch("/user/:user_id/feed/:id" , validation.check(feedSchema.updateFeed(), "body"), verifyToken, feedController.modifyFeed);
 
 
 /**

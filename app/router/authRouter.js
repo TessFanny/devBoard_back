@@ -3,8 +3,8 @@ const express = require('express');
 const authRouter =  express.Router();
 const upload = require('../middleware/uploadImage');
 const authController = require('../controller/authController.js');
-const validationModule = require('../services/joiValidation')
-const schemaUserBody = require('../schema/userBody')
+const validation = require('../services/joiValidation')
+const userSchema = require('../schema/userBody');
 
 // CUSTUM TYPE/SCHEMA
 /**
@@ -28,7 +28,7 @@ const schemaUserBody = require('../schema/userBody')
  * @return {object} 200 - user response
  * @return {object} 500 - Unexpected error
  */
-authRouter.post("/register", authController.registerUser); 
+authRouter.post("/register", validation.check(userSchema.register(), "body") ,authController.registerUser); 
 
 
 
@@ -52,7 +52,7 @@ authRouter.post("/register", authController.registerUser);
  * @return {object} 200 - user response
  * @return {object} 500 - Unexpected error
  */
-authRouter.post("/login",  authController.loginUser);
+authRouter.post("/login", validation.check(userSchema.login(), "body") ,authController.loginUser);
 
 
 

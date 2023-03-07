@@ -4,9 +4,8 @@ const userController = require("../controller/userController.js");
 const verifyToken = require('../middleware/auth.js');
 const multer  = require('multer')
 const upload = require('../middleware/uploadImage');
-
-const validationModule = require('../services/joiValidation')
-const schemaUserBody = require('../schema/userBody')
+const validation = require('../services/joiValidation')
+const userSchema = require('../schema/userBody');
 
 // CUSTUM TYPE/SCHEMA
 /**
@@ -73,7 +72,7 @@ userRouter.get('/user/:id', verifyToken, userController.getOneUser);
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
-userRouter.patch('/user/:id', verifyToken, userController.modifyUser); /** here */
+userRouter.patch('/user/:id',  validation.check(userSchema.modifyUser(), "body") ,verifyToken, userController.modifyUser); /** here */
 
 
 
@@ -98,7 +97,7 @@ userRouter.patch('/user/:id', verifyToken, userController.modifyUser); /** here 
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
-userRouter.patch('/user/:id/profile', verifyToken, upload.single('file'), userController.updatePicture)
+userRouter.patch('/user/:id/profile', validation.check(userSchema.updateProfile(), "body") , verifyToken, upload.single('file'), userController.updatePicture)
 
 
 /**

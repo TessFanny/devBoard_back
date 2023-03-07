@@ -2,6 +2,9 @@ const express = require("express");
 const postRouter = express.Router();
 const postController = require("../controller/postController.js");
 const verifyToken = require("../middleware/auth.js");
+const postSchema = require("../schema/postBody.js");
+const validation = require("../services/joiValidation.js");
+
 
 
 // CUSTUM TYPE/SCHEMA
@@ -40,7 +43,7 @@ postRouter.get("/posts", verifyToken, postController.getAllUsersPosts);
  * @return {object} 500 - Unexpected error
  */
 
-postRouter.get("/user/:user_id/posts", verifyToken, postController.getOneUserPosts);
+postRouter.get("/user/:user_id/posts" ,verifyToken, postController.getOneUserPosts);
 
 
 /**
@@ -66,7 +69,7 @@ postRouter.get("/post/:id", verifyToken, postController.getOnePost);
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.post("/user/:user_id/post",verifyToken, postController.addPost);
+postRouter.post("/user/:user_id/post", validation.check(postSchema.addPost(), "body"),verifyToken, postController.addPost);
 
 
 
@@ -83,7 +86,7 @@ postRouter.post("/user/:user_id/post",verifyToken, postController.addPost);
  * @return {object} 200 - post response
  * @return {object} 500 - Unexpected error
  */
-postRouter.patch("/user/:user_id/post/:id", verifyToken, postController.modifyPost);
+postRouter.patch("/user/:user_id/post/:id" , validation.check(postSchema.updatePost(), "body"), verifyToken, postController.modifyPost);
 
 
 /**
