@@ -1,21 +1,28 @@
+ // npx jest to run the tests 
+
+
 const authRouter = require('./app/router/authRouter')
 const supertest = require('supertest')
-//const { describe } = require('./app/schema/userBody')
-const request = require("request")
 const app = require('./index')
 const pool =require('./app/services/dbClient')
 const Post = require('./app/model/postModel')
+const User = require('./app/model/userModel')
 const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzgxOTc1NDJ9.S4T0Iz4jon8kXbbVI0XmQG_qnREvVfZnws3r1t2Z4b4'
 
+
+
+
 describe(" posts", ()=>{
+
+   
     
 beforeAll(async ()=>{
  await pool.connect()
 });
 
-//  afterAll(async ()=>{
-//      await pool.end()
-//     })
+ afterAll(async ()=>{
+     await pool.end()
+    })
 
     describe("get post route", ()=>{
         // should save the username and password to the database
@@ -57,12 +64,16 @@ describe("POST /login", ()=>{
         describe("given a username and password", ()=>{
             // should save the email and password to the database
             // 
-            test("should respond with a 200 status code", async ()=>{
-                const response = await supertest(app).post("/login").send({
-                    email: "hello1@gmail.com",
-                    password: "hello"
+            test("should respond with a 200 status code and login user", async ()=>{
+                const user = new User()
+                authUser = user.findByField('email', 'myUsername@gmail.com')
+                const {statusCode, body} = await supertest(app).post('/api/login').send({
+		            email: "myUsername@gmail.com",
+                    password: "myUsername"
                 })
-                expect(response.statusCode).toBe(200)
+               expect(statusCode).toBe(200)
+               expect(body.email).toEqual(authUser.email)
+               expect(body.password).toEqual(authUser.password)
             })
             
         })
@@ -72,3 +83,5 @@ describe("POST /login", ()=>{
         })
     
     })
+
+   
