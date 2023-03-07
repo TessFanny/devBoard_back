@@ -18,9 +18,9 @@ const postSchema = {
             title: Joi.string().min(3).max(30), 
             content: Joi.string().min(20), 
             user_id: Joi.number().integer(),
-            like: Joi.number().allow( null),
-            created_at: Joi.string().allow('', null),
-            updated_at: Joi.string().allow('', null)
+            like: Joi.number(),
+            created_at: Joi.string(),
+            updated_at: Joi.string()
         });
     }
 }

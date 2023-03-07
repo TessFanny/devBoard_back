@@ -72,7 +72,7 @@ userRouter.get('/user/:id', verifyToken, userController.getOneUser);
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
-userRouter.patch('/user/:id',  validation.check(userSchema.modifyUser(), "body") ,verifyToken, userController.modifyUser); /** here */
+userRouter.patch('/user/:id',  validation.check(userSchema.userUpdate(), "body") ,verifyToken, userController.modifyUser); /** here */
 
 
 

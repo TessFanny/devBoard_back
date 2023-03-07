@@ -16,13 +16,13 @@ const userSchema = {
             password: Joi.string().min(3).max(30)           
         });
     },
-     modifyUser(){
-        Joi.object({
-                firstname: Joi.string().allow('', null).min(3).max(30), 
-                lastname: Joi.string().allow('', null).min(3).max(30), 
-                username: Joi.string().allow('', null),
-                email: Joi.string().email().allow('', null), 
-                role: Joi.string().allow('', null)
+     userUpdate(){
+       return  Joi.object({
+                firstname: Joi.string().min(3).max(30), 
+                lastname: Joi.string().min(3).max(30).allow("", null), 
+                username: Joi.string(),
+                email: Joi.string().email(), 
+                role: Joi.string()
             })
      },
      updateProfile(){
