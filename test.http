@@ -1,1 +1,8 @@
- patch http://localhost:3001/user/3
+ post http://localhost:3001/api/login
+ Content-Type: application/json
+
+ { 
+     "email"    : "hello1@gmail.com",
+     "password" : "hello"
+    
+ }

@@ -69,6 +69,7 @@ app.use("/api", feedRouter);
 app.use("/api", skillRouter);
 app.use("/api", githubRouter);
 
+module.exports = app
 app.listen(port, () => {
   console.log(`Server ready:  http://localhost:${port}`);
 });
