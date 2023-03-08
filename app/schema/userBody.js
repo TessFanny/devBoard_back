@@ -3,23 +3,23 @@ const Joi = require('joi')
 const userSchema = {
     register(){
         return Joi.object({ 
-            username: Joi.string().min(3).max(30), 
+            username: Joi.string().min(3).max(30).required(), 
             email: Joi.string().email().required(), 
-            password: Joi.string().min(3).max(30), 
-            passwordConfirm: Joi.string().min(3).max(30), 
+            password: Joi.string().min(3).max(30).required(), 
+            passwordConfirm: Joi.string().min(3).max(30).required(), 
            
         });
     },
     login(){
         return Joi.object({            
             email: Joi.string().email().required(), 
-            password: Joi.string().min(3).max(30)           
+            password: Joi.string().min(3).max(30).required()           
         });
     },
      userUpdate(){
        return  Joi.object({
-                firstname: Joi.string().min(3).max(30), 
-                lastname: Joi.string().min(3).max(30).allow("", null), 
+                firstname: Joi.string(), 
+                lastname: Joi.string().allow("", null), 
                 username: Joi.string(),
                 email: Joi.string().email(), 
                 role: Joi.string()
