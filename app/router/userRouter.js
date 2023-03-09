@@ -97,7 +97,7 @@ userRouter.patch('/user/:id',  validation.check(userSchema.userUpdate(), "body")
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
-userRouter.patch('/user/:id/profile', validation.check(userSchema.updateProfile(), "body") , verifyToken, upload.single('file'), userController.updatePicture)
+userRouter.patch('/user/:id/profile', verifyToken, upload.single('file'), userController.updatePicture)
 
 
 /**
