@@ -73,14 +73,17 @@ const userController = {
    // get user by id        
          const userByEmail = await user.findByField("email", req.body.email);
          const userByUsername = await user.findByField("username", req.body.username)
-        
-         if(userByEmail){
+        //console.log( userByEmail.id != req.params.id)
+         if(userByEmail && userByEmail.id != req.params.id){
             return res.status(409).json({ error: 'Email address already in use' });
+            
          }
-         if(userByUsername){
+         if(userByUsername && userByUsername.id != req.params.id){
             return res.status(409).json({ error: 'username address already in use' });
          }
          
+         console.log(req.params.id);
+         console.log(req.body );
          const newUser = await user.update( req.params.id, req.body);
          res.status(200).json(newUser)        
 

@@ -71,7 +71,7 @@ const authController = {
              // get a user by its email 
             const userAuth = await user.findByField("email", req.body.email);
             //const userAuth = await User.findAll({ $where: {email:req.body.email} });
-            console.log(userAuth);
+            
             
             // if no user is found with that email an error message is send 
             if (!userAuth) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
