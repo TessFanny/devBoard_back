@@ -13,9 +13,14 @@ const postController = {
         try {
             const post = new Post();
             const posts = await post.findPostsByUsers()
-            res.status(200).json(posts)
+            if(posts){
+                res.status(200).json(posts)    
+            }
+            else{
+                throw Error()
+            }
         } catch (error) {
-            res.status(400).json({message: err.message})
+            res.status(404).json({message: err.message})
         }
     },
 
@@ -24,7 +29,13 @@ const postController = {
         try {
         const post = new Post();
         const newPost = await post.findPostsByOneUser(req.params.user_id);
-        res.status(200).json(newPost)
+        if(newPost){
+
+            res.status(200).json(newPost)
+        }
+        else{
+            throw Error()
+        }
   
         } catch(err) {
   
@@ -71,10 +82,14 @@ const postController = {
   
            const post = new Post();
            const newPost = await post.update(req.params.id, req.body);
-           res.status(200).json(newPost)
+           if(newPost){
+            res.status(200).json(newPost)
+
+        }else{
+            throw Error()
+        }
         } catch(err) {
-           console.log(err)
-           res.status(400).json({message: err.message})
+           res.status(404).json({message: err.message})
         }
      },
 //get posts liked by a user
@@ -82,12 +97,22 @@ const postController = {
         try {
             const post = new Post();
             const postLiked = await post.addLikesPost(req.params.post_id,req.params.user_id)
-            res.status(200).json(postLiked)
-            console.log(postLiked);
+            if(postLiked){
+                res.status(200).json(postLiked)
+
+            }else{
+                throw Error()
+            }
+            
         } catch (err) {
-            res.status(400).json({message: err.message})
+            res.status(404).json({message: err.message})
         }
     },
+    /**
+     * to get the number of likes on some post
+     * @param {*} req 
+     * @param {*} res 
+     */
     likesCount: async(req,res)=>{
         try {
             const post = new Post();
@@ -100,10 +125,14 @@ const postController = {
                 throw new Error()
             }
         } catch (err) {
-            res.status(400).json({message: err.message})
+            res.status(404).json({message: err.message})
         }
     },
-
+/**
+ * to get all posts liked by some user
+ * @param {*} req 
+ * @param {*} res 
+ */
     postsLikedByUser: async (req,res)=>{
         try {
             const post = new Post();
@@ -115,11 +144,15 @@ const postController = {
             throw Error('this user has no post liked')
         }
         } catch (err) {
-            res.status(400).json({message: err.message})
+            res.status(404).json({message: err.message})
         }
         
     },
-     //delete a post
+    /**
+     * to delete a post
+     * @param {*} req 
+     * @param {*} res 
+     */
      deletePost: async (req,res) => {
         try {
            
@@ -128,9 +161,15 @@ const postController = {
            res.status(200).json(newPost)
   
         } catch(err) {
-           res.status(400).json({message: err.message})
+           res.status(404).json({message: err.message})
         }
      },
+
+     /** to delete a like on a post
+      * 
+      * @param {*} req 
+      * @param {*} res 
+      */
       deleteLikesOnPost: async (req, res)=>{
         try {
            
@@ -140,7 +179,7 @@ const postController = {
             res.status(200).json(newPost)
    
          } catch(err) {
-            res.status(400).json({message: err.message})
+            res.status(404).json({message: err.message})
          }
       }
    
