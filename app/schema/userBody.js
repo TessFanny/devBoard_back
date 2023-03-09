@@ -27,8 +27,7 @@ const userSchema = {
                 firstname: Joi.string(), 
                 lastname: Joi.string().allow("", null), 
                 username: Joi.string(),
-                email: Joi.string().email(), 
-                role: Joi.string()
+                email: Joi.string().email(),                
             })
      },
 
