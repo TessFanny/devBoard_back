@@ -71,9 +71,8 @@ const userController = {
          // get an instance of user
    const user = new User()
    // get user by id        
-         const userByEmail = await user.findByField("email", req.params.email);
-         console.log(userByEmail);
-         const userByUsername = await user.findByField("username", req.params.username)
+         const userByEmail = await user.findByField("email", req.body.email);
+         const userByUsername = await user.findByField("username", req.body.username)
         
          if(userByEmail){
             return res.status(409).json({ error: 'Email address already in use' });
