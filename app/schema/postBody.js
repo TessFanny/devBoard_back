@@ -2,7 +2,9 @@
 
 const Joi = require('joi')
 
+// post schema construction
 const postSchema = {
+    // schema to add  a post 
     addPost(){
         return Joi.object({ 
             title: Joi.string().min(3).max(80).required(), 
@@ -13,6 +15,7 @@ const postSchema = {
             updated_at: Joi.string().allow('', null)
         });
     },
+    // schema to update a post 
     updatePost(){
         return Joi.object({ 
             title: Joi.string().min(3).max(80), 

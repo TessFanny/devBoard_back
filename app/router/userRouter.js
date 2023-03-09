@@ -41,7 +41,7 @@ userRouter.get('/users', verifyToken, userController.getUsers);
  * @security TokenAuth
  * @return {object} 200 - post response
  * @param {number} id.path.required - id en entrée
- * @return {object} 500 - Unexpected error
+ * @return {object} 404 - Unexpected error
  */
 
 
@@ -72,7 +72,7 @@ userRouter.get('/user/:id', verifyToken, userController.getOneUser);
  * @param {number} id.path.required - id en entrée
  * @return {object} 500 - Unexpected error
  */
-userRouter.patch('/user/:id',  validation.check(userSchema.userUpdate(), "body") ,verifyToken, userController.modifyUser); /** here */
+userRouter.patch('/user/:id' ,verifyToken, userController.modifyUser); /** here */
 
 
 
