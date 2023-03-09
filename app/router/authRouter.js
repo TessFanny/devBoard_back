@@ -28,7 +28,7 @@ const userSchema = require('../schema/userBody');
  * @return {object} 200 - user response
  * @return {object} 500 - Unexpected error
  */
-authRouter.post("/register", validation.check(userSchema.register(), "body") ,authController.registerUser); 
+authRouter.post("/register",authController.registerUser); 
 
 
 
@@ -52,7 +52,7 @@ authRouter.post("/register", validation.check(userSchema.register(), "body") ,au
  * @return {object} 200 - user response
  * @return {object} 500 - Unexpected error
  */
-authRouter.post("/login", validation.check(userSchema.login(), "body") ,authController.loginUser);
+authRouter.post("/login",authController.loginUser);
 
 
 
