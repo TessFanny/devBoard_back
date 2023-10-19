@@ -123,8 +123,8 @@ tableName;
             text: `SELECT  * FROM "${this.tableName}" WHERE ${field} = $1`,
             values: [param],
         };
-        
         const result = await pool.query(preparedQuery);
+        console.log(result);
         
         if (!result.rows[0]) {
             return null;

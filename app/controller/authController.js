@@ -47,6 +47,7 @@ const authController = {
             const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET);
             //send user  and token 
             delete newUser.password;
+            console.log(newUser);
             res.status(201).json({token, newUser}); 
         }
         
