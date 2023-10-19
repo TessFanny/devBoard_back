@@ -23,11 +23,11 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.use(cors({
-  origin: ['https://devboard-api.onrender.com'],
+  origin: ['https://devboard-v7yt.onrender.com'],
   credentials: true
 }));
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://devboard-api.onrender.com');
+  res.setHeader('Access-Control-Allow-Origin', 'https://devboard-v7yt.onrender.com');
  // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   //res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
@@ -48,15 +48,7 @@ const options = {
       name: "MIT",
     },
   },
-  //Chemin de la doc
-  //swaggerUIPath: "/devboard",
-  // security: {
-  //   basic: {
-  //     type: "http",
-  //     scheme: "basic",
-  //     bearerFormat: "JWT "
-  //   }
-  // },
+ 
   security: {
     TokenAuth : {
       type: 'http',
