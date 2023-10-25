@@ -15,7 +15,7 @@ const authController = {
     try {
 
         // verify if the password and the password confirmation are the same
-        if (req.body.password !== req.body.passwordConfirm) return res.status(400).json( {msg: 'les mots de passe  ne correspondent pas'})
+        if (req.body.password !== req.body.passwordConfirm) return res.status(400).json(  `password does't match`)
 
         const salt = await bcrypt.genSalt(10);
 
@@ -32,9 +32,9 @@ const authController = {
 
        //  verify if email and or username already exist in the database if so, send a error message 
         if(userEmail ){
-            res.status(404).json('user with that email already exist')
+            res.status(404).json('user with this email already exist')
         } else if( userUsername) {
-            res.status(404).json('user with that  username already exist')
+            res.status(404).json(' user with that  username already exist')
         }
         //else create user and insert it into database
         else{
@@ -75,7 +75,7 @@ const authController = {
             
             
             // if no user is found with that email an error message is send 
-            if (!userAuth) return res.status(400).json( {msg: " L'utilisateur n'existe pas"})
+            if (!userAuth) return res.status(400).json("Email or Password Incorrect")
             // password comparison between password  user provided and the password of an user registered
 
             // if passwords dont match an error is send 
@@ -90,7 +90,7 @@ const authController = {
 
             //else a 404 status is send 
                 }else {
-                    return res.status(400).json( {msg: "Le mot de passe est incorrect !"})
+                    return res.status(400).json("Email or Password Incorrect")
                 }
             
         } catch(err) {
